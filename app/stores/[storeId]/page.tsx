@@ -9,7 +9,7 @@ export default async function StoreDetailPage({
 }: {
   params: { storeId: string }
 }) {
-  const storeId = parseInt(params.storeId);
+  const storeId = await parseInt(params.storeId);
 
   const store = await prisma.shop.findUnique({
     where: { id: storeId },

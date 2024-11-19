@@ -1,25 +1,3 @@
-/*
-  Warnings:
-
-  - The primary key for the `user` table will be changed. If it partially fails, the table could be left without primary key constraint.
-  - You are about to drop the column `name` on the `user` table. All the data in the column will be lost.
-  - You are about to alter the column `id` on the `user` table. The data in that column could be lost. The data in that column will be cast from `VarChar(191)` to `Int`.
-  - A unique constraint covering the columns `[username]` on the table `User` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[deliverylocation]` on the table `User` will be added. If there are existing duplicate values, this will fail.
-  - Added the required column `deliverylocation` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `type` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `username` to the `User` table without a default value. This is not possible if the table is not empty.
-
-*/
--- AlterTable
-ALTER TABLE `user` DROP PRIMARY KEY,
-    DROP COLUMN `name`,
-    ADD COLUMN `deliverylocation` INTEGER NOT NULL,
-    ADD COLUMN `type` VARCHAR(191) NOT NULL,
-    ADD COLUMN `username` VARCHAR(191) NOT NULL,
-    MODIFY `id` INTEGER NOT NULL AUTO_INCREMENT,
-    ADD PRIMARY KEY (`id`);
-
 -- CreateTable
 CREATE TABLE `Product` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -28,6 +6,21 @@ CREATE TABLE `Product` (
     `price` DOUBLE NOT NULL,
     `shopid` INTEGER NOT NULL,
 
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `User` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(191) NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `type` ENUM('ADMIN', 'DRIVER', 'USER', 'STOREOWNER') NOT NULL DEFAULT 'USER',
+    `deliverylocation` INTEGER NOT NULL,
+
+    UNIQUE INDEX `User_username_key`(`username`),
+    UNIQUE INDEX `User_email_key`(`email`),
+    UNIQUE INDEX `User_deliverylocation_key`(`deliverylocation`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -102,12 +95,6 @@ CREATE TABLE `_MenuToProduct` (
     UNIQUE INDEX `_MenuToProduct_AB_unique`(`A`, `B`),
     INDEX `_MenuToProduct_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateIndex
-CREATE UNIQUE INDEX `User_username_key` ON `User`(`username`);
-
--- CreateIndex
-CREATE UNIQUE INDEX `User_deliverylocation_key` ON `User`(`deliverylocation`);
 
 -- AddForeignKey
 ALTER TABLE `Product` ADD CONSTRAINT `Product_shopid_fkey` FOREIGN KEY (`shopid`) REFERENCES `Shop`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
