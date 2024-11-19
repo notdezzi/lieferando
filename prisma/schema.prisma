@@ -13,9 +13,78 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
+model Product{
+	id			Int 	@default(autoincrement()) @id
+	name		String
+	description	String
+	price		Float
+	shopid		Int		
+	shop		Shop	@relation(fields:[shopid],references:[id])
+
+	Order Order[]
+
+	Menu Menu[]
+}
+model User{
+	id					Int			@default(autoincrement()) @id
+  name          String
+	username			String		@unique
+	password			String
+	email				String		@unique
+	type				String
+	orders				Order[]
+	deliverylocation	Int			@unique
+	location			Location	@relation(fields: [deliverylocation], references:[id])
+	Shop Shop[]
+	Rating Rating[]
+}
+model Location{
+	id		Int		@default(autoincrement()) @id
+	street	String
+	number	Int
+	zipcode	Int
+	country	String
+	notes	String
+
+	User User[]
+}
+model Order{
+	id			Int			@default(autoincrement()) @id
+	userid		Int			
+	user		User		@relation(fields:[userid],references:[id])
+	shopid		Int			
+	shop		Shop		@relation(fields:[shopid],references:[id])
+	totalprice	Float
+	date		DateTime
+	items		Product[]
+}
+model Shop{
+	id			Int		@default(autoincrement()) @id
+	ownerid		Int		@unique
+	owner		User	@relation(fields:[ownerid],references:[id])
+	description	String
+	products	Menu[]
+
+	Product Product[]
+
+	Order Order[]
+
+	Rating Rating[]
+}
+model Menu{
+	id			Int		@default(autoincrement()) @id
+	shopid		Int		
+	shop		Shop	@relation(fields:[shopid],references:[id])
+	title		String
+	description	String
+	products	Product[]
+}
+model Rating{
+	id			Int		@default(autoincrement()) @id
+	description	String
+	rating		Int
+	driverid	Int		
+	driver		User	@relation(fields:[driverid],references:[id])
+	shopid		Int		
+	shop		Shop	@relation(fields:[shopid],references:[id])
 }
