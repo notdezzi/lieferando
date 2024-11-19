@@ -8,7 +8,9 @@ export default async function StoresPage() {
   const stores = await prisma.shop.findMany({
     include: {
       owner: true,
-      menus: true,//{
+      menus: true,
+      Rating: true
+      //{
       //   include: {
       //     products: true
       //   }
@@ -27,7 +29,8 @@ export default async function StoresPage() {
           <Link href={`/stores/${store.id}`}>
             <h2>{store.owner.name}'s Store</h2>
             <p>Description: {store.description}</p>
-            {/* <p>Total Products: {store.menus}</p> */}
+            <p>{store.Rating.map((menu) => (menu.rating))}</p>
+            {/* Implementiere bitte ein sterne system dass die ratings auf sterne aufteilst ??? */}
           </Link>
         </div>
       ))}
