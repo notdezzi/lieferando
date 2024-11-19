@@ -63,7 +63,7 @@ model Shop{
 	ownerid		Int		@unique
 	owner		User	@relation(fields:[ownerid],references:[id])
 	description	String
-	products	Menu[]
+	menus	Menu[]
 
 	Product Product[]
 
