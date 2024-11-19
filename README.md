@@ -1,6 +1,8 @@
+## How to install 
+```
 npm i --force
-
-npx prisma migrate dev --name init
-npx prisma db seed
-
+```
+create .env with secret data mwhaahhahahaha
+```
 npm run dev
+```
