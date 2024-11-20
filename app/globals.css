@@ -43,7 +43,7 @@ nav img{
   margin-left:2rem;
 }
 
-nav button{
+button{
   height: 40px;
   padding: 8px;
   border-radius: 75px;
@@ -70,8 +70,7 @@ nav button{
   height: 40px;
   background-color: white;
   margin-right:1rem;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
 
