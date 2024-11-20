@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { NextAuthProvider } from "../providers/NextAuthProvider";
+import drinkanddrivesmallw from '../public/drink_and_drive_small_white.png';
+import Image from "next/image";
+import styles from './layout.module.css';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,7 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          {children}
+          </NextAuthProvider>
       </body>
     </html>
   );
