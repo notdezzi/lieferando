@@ -7,7 +7,8 @@ import {
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Image from "next/image";
-import drinkanddrive from '../public/drinkanddrive.png';
+import drinkanddrivealpha from '../public/drinkanddrivealpha.png';
+import bgimg from '../public/bgimg.png';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -21,12 +22,16 @@ export default async function Home() {
         alignItems: "center",
         width: "100vw",
         height: "80vh",
+        /*backgroundImage: "url(${bgimg})", -----  Check later
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "norepeat",*/
       }}
     >
       <div className="wrapper-content">
         <Image
         alt="Logo"
-        src={drinkanddrive}
+        src={drinkanddrivealpha}
         style= {{
           marginBottom: "1rem",
         }}
