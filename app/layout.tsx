@@ -27,7 +27,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          <nav>
+            <img src="" alt="hier du machen logo du yarrak"/>
+            <div className="wrapper-search">
+              <input type="text" className="searchbar" placeholder="Suche hier nach deiner Adresse"></input>
+              <button className="searchbutton"></button>
+            </div>
+          </nav>{children}</NextAuthProvider>
       </body>
     </html>
   );
