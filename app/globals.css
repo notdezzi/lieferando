@@ -45,7 +45,7 @@ nav img{
 
 nav button{
   height: 40px;
-  padding: 5%;
+  padding: 8px;
   border-radius: 75px;
   background-color: #169c16;
   border: 0px;
@@ -54,7 +54,12 @@ nav button{
 .wrapper-search{
   display: flex;
   align-items: center;
-  margin-right: 2rem;
+}
+
+.profile{
+  display: flex;
+  align-items: center;
+  margin: auto 2rem auto 0;
 }
 
 .searchbar{
