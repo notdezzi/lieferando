@@ -15,19 +15,22 @@ export default async function Home() {
   console.log(session);
 
   return (
+    
     <main
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         width: "100vw",
-        height: "915px",
+        height: "835px",
+        marginTop: "80px",
         /*backgroundImage: "url(${bgimg})", -----  Check later
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "norepeat",*/
       }}
     >
+      
       <div className="wrapper-content">
         <Image
         alt="Logo"
