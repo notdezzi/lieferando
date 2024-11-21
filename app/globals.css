@@ -39,10 +39,6 @@ nav{
   height: 80px;
 }
 
-nav img{
-  /*margin-left:2rem;*/
-}
-
 button{
   height: 40px;
   padding: 8px;
@@ -75,7 +71,7 @@ button{
 
 
 a {
-  color: inherit;
+  color: #212321;
   text-decoration: none;
 }
 
