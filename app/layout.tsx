@@ -4,6 +4,9 @@ import "./globals.css";
 import { NextAuthProvider } from "../providers/NextAuthProvider";
 import drinkanddrivesmallw from '../public/drink_and_drive_small_white.png';
 import Image from "next/image";
+import Header from "@/components/header.component"
+import Footer from "@/components/footer.component"
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,21 +33,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextAuthProvider>
-          <nav>
-            <Image
-            alt="Logo"
-            src={drinkanddrivesmallw}
-            style={{
-              maxWidth: '200px',
-              height: 'auto',
-            }}
-            />
-            <div className="wrapper-search">
-              <input type="text" className="searchbar" placeholder="Suche hier nach deiner Adresse..."></input>
-              <button className="searchbutton"></button>
-            </div>
-          </nav>
+          <Header />
           {children}
+          <Footer />
           </NextAuthProvider>
       </body>
     </html>

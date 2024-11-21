@@ -27,6 +27,50 @@
   }
 }
 
+.wrapper-search-pg{
+  margin: 1rem;
+}
+
+.searchbutton {
+  height: 40px;
+  padding: 8px;
+  border-radius: 75px;
+  background-color: #169c16;
+  border: 0px;
+}
+
+.wrapper-content img{
+  margin-bottom: 1rem;
+}
+
+.wrapper-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.searchbar{
+  display: flex;
+  border-radius: 10px;
+  border: 0px;
+  width: 25vw;
+  height: 40px;
+  background-color: white;
+  margin-right:1rem;
+  text-align: center;
+}
+
+.footer-wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+.footer-wrapper .socials{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .main {
   display: flex;
   flex-direction: column;

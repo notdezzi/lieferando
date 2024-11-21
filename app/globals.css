@@ -33,19 +33,15 @@ body {
 nav{
   position: fixed;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: #064C06;
   width: 100vw;
   height: 80px;
 }
 
-nav img{
-  margin-left:2rem;
-}
-
-nav button{
+button{
   height: 40px;
-  padding: 5%;
+  padding: 8px;
   border-radius: 75px;
   background-color: #169c16;
   border: 0px;
@@ -54,7 +50,12 @@ nav button{
 .wrapper-search{
   display: flex;
   align-items: center;
-  margin-right: 2rem;
+}
+
+.profile{
+  display: flex;
+  align-items: center;
+  margin: auto 0;
 }
 
 .searchbar{
@@ -65,13 +66,12 @@ nav button{
   height: 40px;
   background-color: white;
   margin-right:1rem;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
 
 a {
-  color: inherit;
+  color: #212321;
   text-decoration: none;
 }
 
