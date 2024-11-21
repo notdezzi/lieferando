@@ -37,9 +37,7 @@ export default async function Home() {
         src={drinkanddrivealpha}
         style= {{
           marginBottom: "1rem",
-        }}
-
-        />
+        }}/>
         <div className="wrapper-search-pg" 
           style={{
             display: 'flex',
