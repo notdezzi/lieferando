@@ -1,6 +1,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --text: #050315;
+  --background: #fbfbfe;
+  --primary: #2f27ce;
+  --secondary: #dedcff;
+  --accent: #433bff;
 }
 
 * {
@@ -11,7 +16,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #fbfbfe;
     --foreground: #ededed;
   }
 }
@@ -34,7 +39,7 @@ nav{
   position: fixed;
   display: flex;
   justify-content: space-around;
-  background-color: #064C06;
+  background-color: var(--primary);
   width: 100vw;
   height: 80px;
 }
@@ -43,7 +48,7 @@ button{
   height: 40px;
   padding: 8px;
   border-radius: 75px;
-  background-color: #169c16;
+  background-color: var(--secondary);
   border: 0px;
 }
 
@@ -61,7 +66,7 @@ button{
 .searchbar{
   display: flex;
   border-radius: 10px;
-  border: 0px;
+  border: solid 3px var(--accent);
   width: 25vw;
   height: 40px;
   background-color: white;

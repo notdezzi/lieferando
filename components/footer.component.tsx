@@ -7,7 +7,7 @@ export default function Footer(){
             {
                 width: "100vw",
                 height: "60px",
-                backgroundColor: "#29f429",
+                backgroundColor: "#dedcff",
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-evenly",
