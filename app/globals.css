@@ -33,14 +33,14 @@ body {
 nav{
   position: fixed;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: #064C06;
   width: 100vw;
   height: 80px;
 }
 
 nav img{
-  margin-left:2rem;
+  /*margin-left:2rem;*/
 }
 
 button{
@@ -59,7 +59,7 @@ button{
 .profile{
   display: flex;
   align-items: center;
-  margin: auto 2rem auto 0;
+  margin: auto 0;
 }
 
 .searchbar{
