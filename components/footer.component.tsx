@@ -1,19 +1,19 @@
 "use client";
 
-export default function Footer(){
-    return(
-        <div className="footer-wrapper" 
-        style={
-            {
-                width: "100vw",
-                height: "60px",
-                backgroundColor: "#29f429",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-            }
-        }>
+export default function Footer() {
+    return (
+        <div className="footer-wrapper"
+            style={
+                {
+                    width: "100vw",
+                    height: "60px",
+                    backgroundColor: "#97ceb2",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }
+            }>
             <ul className="socials" style={{
                 display: "flex",
                 flexDirection: "row",
@@ -46,10 +46,10 @@ export default function Footer(){
                 listStyle: "none",
             }}>
                 <li className="impressum" style={{
-                   margin: "0px 10px"
+                    margin: "0px 10px"
                 }}>
                     <a href="" className="ref-test">Impressum</a>
-                    </li>
+                </li>
                 <li className="datenschutz" style={{
                     margin: "0px 10px"
                 }}>

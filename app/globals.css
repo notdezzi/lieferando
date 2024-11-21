@@ -1,7 +1,8 @@
 :root {
-  --background: #ffffff;
+  --background: #f2f8f5;
   --foreground: #171717;
 }
+
 
 * {
   box-sizing: border-box;
@@ -9,12 +10,6 @@
   margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 html,
 body {
@@ -34,7 +29,7 @@ nav{
   position: fixed;
   display: flex;
   justify-content: space-around;
-  background-color: #064C06;
+  background-color: #5eaf85;
   width: 100vw;
   height: 80px;
 }
