@@ -91,9 +91,9 @@ export default function RegisterPage() {
 
     return (
         <div className={styles.wrapper}>
-            <div className="max-w-2xl mx-auto px-4">
-                <div className="bg-white rounded-lg shadow p-8">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Create an account</h2>
+            <div className={styles.wrappercontent}>
+                <div className={styles.contentform}>
+                    <h2 className={styles.h2}>Create an account</h2>
                     
                     {error && (
                         <div className="mb-4 p-3 text-sm text-red-600 bg-red-50 rounded">
@@ -101,13 +101,13 @@ export default function RegisterPage() {
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className={styles.forms}>
                         {/* Personal Information */}
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-semibold text-gray-900">Personal Information</h3>
+                        <div className={styles.formcomponent}>
+                            <h3 className={styles.h3}>Personal Information</h3>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
+                                <div className={styles.formspacer}>
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                                         Full Name
                                     </label>
@@ -118,11 +118,11 @@ export default function RegisterPage() {
                                         required
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        className={styles.input}
                                     />
                                 </div>
 
-                                <div>
+                                <div className={styles.formspacer}>
                                     <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                                         Username
                                     </label>
@@ -133,12 +133,12 @@ export default function RegisterPage() {
                                         required
                                         value={formData.username}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        className={styles.input}
                                     />
                                 </div>
                             </div>
 
-                            <div>
+                            <div className={styles.formspacer}>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                     Email
                                 </label>
@@ -149,11 +149,11 @@ export default function RegisterPage() {
                                     required
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    className={styles.input}
                                 />
                             </div>
 
-                            <div>
+                            <div className={styles.formspacer}>
                                 <label htmlFor="type" className="block text-sm font-medium text-gray-700">
                                     Account Type
                                 </label>
@@ -163,7 +163,7 @@ export default function RegisterPage() {
                                     required
                                     value={formData.type}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    className={styles.select}
                                 >
                                     <option value="CUSTOMER">Customer</option>
                                     <option value="SHOP_OWNER">Shop Owner</option>
@@ -173,11 +173,11 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Address Information */}
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-semibold text-gray-900">Address</h3>
+                        <div className={styles.formcomponent}>
+                            <h3 className={styles.h3}>Address</h3>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
+                                <div className={styles.formspacer}>
                                     <label htmlFor="street" className="block text-sm font-medium text-gray-700">
                                         Street
                                     </label>
@@ -188,11 +188,11 @@ export default function RegisterPage() {
                                         required
                                         value={formData.street}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        className={styles.input}
                                     />
                                 </div>
 
-                                <div>
+                                <div className={styles.formspacer}>
                                     <label htmlFor="number" className="block text-sm font-medium text-gray-700">
                                         Number
                                     </label>
@@ -203,13 +203,13 @@ export default function RegisterPage() {
                                         required
                                         value={formData.number}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        className={styles.input}
                                     />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
+                                <div className={styles.formspacer}>
                                     <label htmlFor="zipcode" className="block text-sm font-medium text-gray-700">
                                         Zipcode
                                     </label>
@@ -220,11 +220,11 @@ export default function RegisterPage() {
                                         required
                                         value={formData.zipcode}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        className={styles.input}
                                     />
                                 </div>
 
-                                <div>
+                                <div className={styles.formspacer}>
                                     <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                                         Country
                                     </label>
@@ -235,12 +235,12 @@ export default function RegisterPage() {
                                         required
                                         value={formData.country}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        className={styles.input}
                                     />
                                 </div>
                             </div>
 
-                            <div>
+                            <div className={styles.formspacer}>
                                 <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
                                     Address Notes (Optional)
                                 </label>
@@ -250,17 +250,17 @@ export default function RegisterPage() {
                                     value={formData.notes}
                                     onChange={handleChange}
                                     rows={3}
-                                    className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    className={styles.textarea}
                                 />
                             </div>
                         </div>
 
                         {/* Password Section */}
                         <div className="space-y-4">
-                            <h3 className="text-xl font-semibold text-gray-900">Security</h3>
+                            <h3 className={styles.h3}>Security</h3>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
+                                <div className={styles.formspacer}>
                                     <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                                         Password
                                     </label>
@@ -271,12 +271,12 @@ export default function RegisterPage() {
                                         required
                                         value={formData.password}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        className={styles.input}
                                         minLength={6}
                                     />
                                 </div>
 
-                                <div>
+                                <div className={styles.formspacer}>
                                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                                         Confirm Password
                                     </label>
@@ -287,14 +287,14 @@ export default function RegisterPage() {
                                         required
                                         value={formData.confirmPassword}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        className={styles.input}
                                         minLength={6}
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        <div className={styles.buttoncreate}>
                             <button
                                 type="submit"
                                 disabled={isLoading}
@@ -304,9 +304,9 @@ export default function RegisterPage() {
                             </button>
                         </div>
 
-                        <div className="text-sm text-center">
+                        <div className={styles.textsignin}>
                             Already have an account?{' '}
-                            <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+                            <Link href="/login" className={styles.loginstyle}>
                                 Sign in
                             </Link>
                         </div>
