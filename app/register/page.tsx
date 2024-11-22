@@ -4,6 +4,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import styles from '@/app/register/register.module.css'
 
 type FormData = {
     name: string
@@ -89,7 +90,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="min-h-screen py-8 bg-gray-50">
+        <div className={styles.wrapper}>
             <div className="max-w-2xl mx-auto px-4">
                 <div className="bg-white rounded-lg shadow p-8">
                     <h2 className="text-3xl font-bold text-gray-900 mb-8">Create an account</h2>
