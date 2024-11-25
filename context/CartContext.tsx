@@ -1,7 +1,10 @@
 // context/CartContext.tsx
 'use client';
 
+//import { Session } from 'inspector/promises';
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth';
 
 interface CartItem {
   shopId: any;
@@ -39,20 +42,24 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product: Omit<CartItem, 'quantity'>) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.productId === product.productId);
-      
-      if (existingItem) {
-        return prevCart.map(item => 
-          item.productId === product.productId 
-            ? {...item, quantity: item.quantity + 1}
-            : item
-        );
-      }
-      
-      return [...prevCart, {...product, quantity: 1}];
-    });
+  const addToCart = async (product: Omit<CartItem, 'quantity'>) => {
+    const session = await getServerSession()
+    if(session){
+      setCart(prevCart => {
+        const existingItem = prevCart.find(item => item.productId === product.productId);
+        
+        if (existingItem) {
+          return prevCart.map(item => 
+            item.productId === product.productId 
+              ? {...item, quantity: item.quantity + 1}
+              : item
+          );
+        }
+        return [...prevCart, {...product, quantity: 1}];
+      });
+    }else{
+        redirect("/register")
+    }
   };
 
   const removeFromCart = (productId: number) => {
