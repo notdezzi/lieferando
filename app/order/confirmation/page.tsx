@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 export default async function OrderConfirmedPage() {
   return (
     <div>
-
         ORder confirmd
     </div>
   );
