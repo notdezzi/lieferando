@@ -80,9 +80,9 @@ button{
 
 
 
-.searchbar{
-  display: flex;
+.searchbar{ 
   border-radius: 10px;
+  display: flex;
   border: solid 3px var(--accent);
   width: 25vw;
   height: 40px;
