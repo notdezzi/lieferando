@@ -12,6 +12,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  color:#000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,9 +35,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+main{
+  
+  margin-top: 80px;
+}
 
 nav{
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: space-around;
   background-color: var(--primary);
@@ -66,7 +71,7 @@ button{
   border-radius: 75px;
   background-color: #97ceb2;
   border: 0px;
-  color: #fff;
+  color: #000;
 }
 
 .cart{

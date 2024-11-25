@@ -10,7 +10,6 @@ export const LoginButton = () => {
     </button>
   );
 };
-
 export const RegisterButton = () => {
   return (
     <Link href="/register" style={{ marginRight: 10 }}>

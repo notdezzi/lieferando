@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
 
         // Hash the password
         const hashedPassword = await hash(password, 10)
-
+        
         // Create location first
         const location = await prisma.location.create({
             data: {

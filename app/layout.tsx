@@ -34,9 +34,11 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextAuthProvider>
           <Header />
-          {children}
+          <main>
+            {children}
+          </main>
           <Footer />
-          </NextAuthProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );
