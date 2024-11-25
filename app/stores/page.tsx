@@ -14,14 +14,14 @@ export default async function StoresPage() {
   });
 
   // Function to calculate average rating
-  const getAverageRating = (ratings) => {
+  const getAverageRating = (ratings: any[]) => {
     if (ratings.length === 0) return 0;
-    const sum = ratings.reduce((acc, curr) => acc + curr.rating, 0);
+    const sum = ratings.reduce((acc: any, curr: { rating: any; }) => acc + curr.rating, 0);
     return sum / ratings.length;
   };
 
   // Function to generate star divs
-  const generateStarDivs = (rating) => {
+  const generateStarDivs = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(
