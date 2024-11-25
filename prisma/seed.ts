@@ -15,45 +15,297 @@ async function main() {
         prisma.location.deleteMany(),
     ])
 
-    // Create locations
-    const locations = await Promise.all([
-        prisma.location.create({
-            data: {
-                street: "Main Street",
-                number: 123,
-                zipcode: 12345,
-                country: "USA",
-                notes: "Near the park"
-            }
-        }),
-        prisma.location.create({
-            data: {
-                street: "Broadway",
-                number: 456,
-                zipcode: 67890,
-                country: "USA",
-                notes: "Corner building"
-            }
-        }),
-        prisma.location.create({
-            data: {
-                street: "Oak Avenue",
-                number: 789,
-                zipcode: 11223,
-                country: "USA",
-                notes: "Behind mall"
-            }
-        }),
-        prisma.location.create({
-            data: {
-                street: "Pine Street",
-                number: 101,
-                zipcode: 44556,
-                country: "USA",
-                notes: "Next to subway"
-            }
-        })
-    ])
+    const locationSeeds = [
+        {
+            street: "Pine Street",
+            number: 101,
+            zipcode: 44556,
+            country: "USA",
+            notes: "Next to subway"
+        },
+        {
+            street: "Maple Avenue",
+            number: 234,
+            zipcode: 44557,
+            country: "USA",
+            notes: "Corner building"
+        },
+        {
+            street: "Oak Drive",
+            number: 567,
+            zipcode: 44558,
+            country: "USA",
+            notes: "Behind shopping center"
+        },
+        {
+            street: "Elm Street",
+            number: 789,
+            zipcode: 44559,
+            country: "USA",
+            notes: "Near park"
+        },
+        {
+            street: "Cedar Lane",
+            number: 321,
+            zipcode: 44560,
+            country: "USA",
+            notes: "Next to school"
+        },
+        {
+            street: "Birch Road",
+            number: 432,
+            zipcode: 44561,
+            country: "USA",
+            notes: "Near hospital"
+        },
+        {
+            street: "Willow Way",
+            number: 876,
+            zipcode: 44562,
+            country: "USA",
+            notes: "Next to library"
+        },
+        {
+            street: "Spruce Court",
+            number: 543,
+            zipcode: 44563,
+            country: "USA",
+            notes: "Near fire station"
+        },
+        {
+            street: "Magnolia Boulevard",
+            number: 654,
+            zipcode: 44564,
+            country: "USA",
+            notes: "Shopping district"
+        },
+        {
+            street: "Cherry Street",
+            number: 987,
+            zipcode: 44565,
+            country: "USA",
+            notes: "Restaurant row"
+        },
+        {
+            street: "Sycamore Lane",
+            number: 111,
+            zipcode: 33445,
+            country: "USA",
+            notes: "Business district"
+        },
+        {
+            street: "Poplar Avenue",
+            number: 222,
+            zipcode: 33446,
+            country: "USA",
+            notes: "Near beach"
+        },
+        {
+            street: "Chestnut Drive",
+            number: 333,
+            zipcode: 33447,
+            country: "USA",
+            notes: "Tourist area"
+        },
+        {
+            street: "Redwood Road",
+            number: 444,
+            zipcode: 33448,
+            country: "USA",
+            notes: "Historic district"
+        },
+        {
+            street: "Sequoia Street",
+            number: 555,
+            zipcode: 33449,
+            country: "USA",
+            notes: "Arts district"
+        },
+        {
+            street: "Dogwood Lane",
+            number: 666,
+            zipcode: 22334,
+            country: "USA",
+            notes: "University area"
+        },
+        {
+            street: "Ash Court",
+            number: 777,
+            zipcode: 22335,
+            country: "USA",
+            notes: "Sports complex nearby"
+        },
+        {
+            street: "Beech Boulevard",
+            number: 888,
+            zipcode: 22336,
+            country: "USA",
+            notes: "Entertainment district"
+        },
+        {
+            street: "Hickory Avenue",
+            number: 999,
+            zipcode: 22337,
+            country: "USA",
+            notes: "Financial district"
+        },
+        {
+            street: "Juniper Drive",
+            number: 123,
+            zipcode: 22338,
+            country: "USA",
+            notes: "Cultural center area"
+        },
+        {
+            street: "Walnut Street",
+            number: 456,
+            zipcode: 11223,
+            country: "USA",
+            notes: "Theater district"
+        },
+        {
+            street: "Locust Lane",
+            number: 789,
+            zipcode: 11224,
+            country: "USA",
+            notes: "Museum quarter"
+        },
+        {
+            street: "Hawthorn Road",
+            number: 147,
+            zipcode: 11225,
+            country: "USA",
+            notes: "Convention center area"
+        },
+        {
+            street: "Cypress Avenue",
+            number: 258,
+            zipcode: 11226,
+            country: "USA",
+            notes: "Marina district"
+        },
+        {
+            street: "Palm Boulevard",
+            number: 369,
+            zipcode: 11227,
+            country: "USA",
+            notes: "Waterfront area"
+        },
+        {
+            street: "Acacia Drive",
+            number: 951,
+            zipcode: 55667,
+            country: "USA",
+            notes: "Technology park"
+        },
+        {
+            street: "Alder Court",
+            number: 753,
+            zipcode: 55668,
+            country: "USA",
+            notes: "Research center nearby"
+        },
+        {
+            street: "Aspen Lane",
+            number: 852,
+            zipcode: 55669,
+            country: "USA",
+            notes: "Innovation district"
+        },
+        {
+            street: "Bamboo Road",
+            number: 741,
+            zipcode: 55670,
+            country: "USA",
+            notes: "Startup hub"
+        },
+        {
+            street: "Banyan Street",
+            number: 963,
+            zipcode: 55671,
+            country: "USA",
+            notes: "Media district"
+        },
+        {
+            street: "Catalpa Avenue",
+            number: 159,
+            zipcode: 66778,
+            country: "USA",
+            notes: "Fashion district"
+        },
+        {
+            street: "Eucalyptus Drive",
+            number: 357,
+            zipcode: 66779,
+            country: "USA",
+            notes: "Design district"
+        },
+        {
+            street: "Fir Boulevard",
+            number: 852,
+            zipcode: 66780,
+            country: "USA",
+            notes: "Craft brewery area"
+        },
+        {
+            street: "Ginkgo Lane",
+            number: 741,
+            zipcode: 66781,
+            country: "USA",
+            notes: "Artisan quarter"
+        },
+        {
+            street: "Holly Road",
+            number: 963,
+            zipcode: 66782,
+            country: "USA",
+            notes: "Boutique district"
+        },
+        {
+            street: "Ironwood Court",
+            number: 147,
+            zipcode: 77889,
+            country: "USA",
+            notes: "Gallery row"
+        },
+        {
+            street: "Jacaranda Avenue",
+            number: 258,
+            zipcode: 77890,
+            country: "USA",
+            notes: "Coffee shop district"
+        },
+        {
+            street: "Kumquat Drive",
+            number: 369,
+            zipcode: 77891,
+            country: "USA",
+            notes: "Farm-to-table area"
+        },
+        {
+            street: "Larch Boulevard",
+            number: 951,
+            zipcode: 77892,
+            country: "USA",
+            notes: "Culinary district"
+        },
+        {
+            street: "Mahogany Street",
+            number: 753,
+            zipcode: 77893,
+            country: "USA",
+            notes: "Food truck park nearby"
+        }
+    ]
+    
+    // Use in your seed script:
+    const locations = await Promise.all(
+        locationSeeds.map(location => 
+            prisma.location.create({
+                data: location
+            })
+        )
+    )
 
     // Create users with different roles
     const hashedPassword = await hash('password123', 10)
@@ -109,13 +361,15 @@ async function main() {
         prisma.shop.create({
             data: {
                 ownerid: users[1].id, // Jane's shop
-                description: "Best Pizza in Town"
+                description: "Best Pizza in Town",
+                storelocation: locations[4].id
             }
         }),
         prisma.shop.create({
             data: {
                 ownerid: users[2].id, // Bob's shop
-                description: "Authentic Italian Cuisine"
+                description: "Authentic Italian Cuisine",
+                storelocation: locations[5].id
             }
         })
     ])

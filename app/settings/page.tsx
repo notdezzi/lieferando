@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import styles from './profile.module.css';
+import styles from './settings.module.css';
 
 interface UserProfile {
   id: number;
@@ -20,7 +20,7 @@ interface UserProfile {
   };
 }
 
-export default function ProfilePage() {
+export default function SettingsPage() {
   const { data: session } = useSession();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);

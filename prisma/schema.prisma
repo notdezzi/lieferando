@@ -49,6 +49,7 @@ model Location {
     notes   String
 
     User User[]
+    Shop Shop?
 }
 
 model Order {
