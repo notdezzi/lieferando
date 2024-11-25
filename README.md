@@ -2,7 +2,7 @@
 ```
 npm i --force
 ```
-create .env with secret data mwhaahhahahaha
+create .env with secwet data mwhaahhahahaha
 
 ```
 npx prisma migrate dev --name init

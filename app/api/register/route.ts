@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
 
         // Remove password from response
         const { password: _, ...userWithoutPassword } = user
-
+        prisma.order.deleteMany()
         return NextResponse.json(
             { message: 'User created successfully', user: userWithoutPassword },
             { status: 201 }
