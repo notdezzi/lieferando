@@ -66,6 +66,11 @@ button{
   border-radius: 75px;
   background-color: #97ceb2;
   border: 0px;
+  color: #fff;
+}
+
+.cart{
+  margin-left: 24px;
 }
 
 .wrappercartprofile{
