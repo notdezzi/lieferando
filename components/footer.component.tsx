@@ -5,6 +5,9 @@ export default function Footer() {
         <div className="footer-wrapper"
             style={
                 {
+                    position: "fixed",
+                    left: "0",
+                    bottom: "0",
                     width: "100vw",
                     height: "60px",
                     backgroundColor: "#97ceb2",
