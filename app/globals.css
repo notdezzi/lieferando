@@ -80,7 +80,7 @@ button{
 
 
 
-.searchbar{
+.searchbar{ 
   display: flex;
   border-radius: 10px;
   border: solid 3px var(--accent);
