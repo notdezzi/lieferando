@@ -57,11 +57,23 @@ button{
   align-items: center;
 }
 
-.profile{
+.profile, .cart{
   display: flex;
   align-items: center;
   margin: auto 0;
+  height: 40px;
+  padding: 8px;
+  border-radius: 75px;
+  background-color: #97ceb2;
+  border: 0px;
 }
+
+.wrappercartprofile{
+  display: flex;
+  align-items: center;
+}
+
+
 
 .searchbar{
   display: flex;
