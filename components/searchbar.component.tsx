@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from 'react'
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 interface Shop {
     id: string
@@ -58,7 +60,7 @@ export default function SearchPage() {
             
             <form onSubmit={handleSearch}>
                 <div style={{ marginBottom: '20px' }}>
-                    <input
+                    <Input
                         type="text"
                         value={zipcode}
                         onChange={(e) => setZipcode(e.target.value)}
@@ -83,16 +85,15 @@ export default function SearchPage() {
                         <option value="large">Large (~500 miles)</option>
                     </select>
                     
-                    <button
+                    <Button
                         type="submit"
                         disabled={loading}
                         style={{
-                            padding: '8px 16px',
                             cursor: loading ? 'not-allowed' : 'pointer'
                         }}
                     >
                         {loading ? 'Searching...' : 'Search'}
-                    </button>
+                    </Button>
                 </div>
             </form>
 

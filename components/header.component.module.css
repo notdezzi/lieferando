@@ -1,0 +1,11 @@
+.wrappersearchpg{
+    display: flex;
+    gap:10px;
+}
+.wrappercartprofile{
+    display: flex;
+    gap:10px;
+}
+.searchbutton{
+    border: none;
+}

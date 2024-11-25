@@ -9,6 +9,7 @@ import { authOptions } from "@/lib/auth";
 import Image from "next/image";
 import drinkanddrivealpha from '../public/drinkanddrivealpha.png';
 import bgimg from '../public/bgimg.png';
+import Link from "next/link";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -32,12 +33,14 @@ export default async function Home() {
     >
       
       <div className="wrapper-content">
+        <Link href="/stores">
         <Image
         alt="Logo"
         src={drinkanddrivealpha}
         style= {{
           marginBottom: "1rem",
         }}/>
+        </Link>
         <div className="wrapper-search-pg" 
           style={{
             display: 'flex',

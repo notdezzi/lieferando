@@ -1,6 +1,14 @@
 // app/stores/page.tsx
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 const prisma = new PrismaClient();
 
@@ -8,7 +16,6 @@ export default async function StoresPage() {
   const stores = await prisma.shop.findMany({
     include: {
       owner: true,
-      menus: true,
       Rating: true
     }
   });
@@ -34,20 +41,22 @@ export default async function StoresPage() {
   };
 
   return (
-    <div>
-      <h1>All Stores</h1>
+    <div className="flex flex-col h-dvh items-center gap-5">
+      <h1 className='text-3xl font-bold py-5'>All Stores</h1>
       {stores.map((store) => (
-        <div key={store.id}>
+        <Card key={store.id} className='w-[380px]'>
           <Link href={`/stores/${store.id}`}>
-            <h2>{store.owner.name}'s Store</h2>
-            <p>Description: {store.description}</p>
-            <div>
+            <CardHeader >
+              <CardTitle>{store.owner.name}'s Store</CardTitle>
+              <CardDescription>{store.description}</CardDescription>
+            </CardHeader>
+            <CardFooter>
               <div style={{ display: 'flex' }}>
                 {generateStarDivs(Math.round(getAverageRating(store.Rating)))}
               </div>
-            </div>
+            </CardFooter>
           </Link>
-        </div>
+        </Card>
       ))}
     </div>
   );

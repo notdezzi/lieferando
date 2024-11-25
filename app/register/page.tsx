@@ -2,8 +2,18 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Input } from '@/components/ui/input'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { useSession } from 'next-auth/react'
 
 type FormData = {
     name: string
@@ -20,6 +30,7 @@ type FormData = {
 }
 
 export default function RegisterPage() {
+    const { data: session } = useSession();
     const router = useRouter()
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -88,29 +99,28 @@ export default function RegisterPage() {
         }
     }
 
+    if (session) {
+        redirect("/settings")
+      }
     return (
-        <div className="min-h-screen py-8 bg-gray-50">
-            <div className="max-w-2xl mx-auto px-4">
-                <div className="bg-white rounded-lg shadow p-8">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Create an account</h2>
-                    
-                    {error && (
-                        <div className="mb-4 p-3 text-sm text-red-600 bg-red-50 rounded">
-                            {error}
-                        </div>
-                    )}
-
+        <div className="flex h-dvh justify-center items-center">
+        <Card className="w-[380px]">
+            <CardHeader>
+                <CardTitle>Log In</CardTitle>
+                <CardDescription>Enter your details below to login to your account</CardDescription>
+            </CardHeader>
+            <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Personal Information */}
                         <div className="space-y-4">
                             <h3 className="text-xl font-semibold text-gray-900">Personal Information</h3>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                                         Full Name
                                     </label>
-                                    <input
+                                    <Input
                                         type="text"
                                         id="name"
                                         name="name"
@@ -125,7 +135,7 @@ export default function RegisterPage() {
                                     <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                                         Username
                                     </label>
-                                    <input
+                                    <Input
                                         type="text"
                                         id="username"
                                         name="username"
@@ -141,7 +151,7 @@ export default function RegisterPage() {
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                     Email
                                 </label>
-                                <input
+                                <Input
                                     type="email"
                                     id="email"
                                     name="email"
@@ -156,7 +166,7 @@ export default function RegisterPage() {
                                 <label htmlFor="type" className="block text-sm font-medium text-gray-700">
                                     Account Type
                                 </label>
-                                <select
+                                <Select
                                     id="type"
                                     name="type"
                                     required
@@ -164,23 +174,28 @@ export default function RegisterPage() {
                                     onChange={handleChange}
                                     className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                 >
-                                    <option value="CUSTOMER">Customer</option>
-                                    <option value="SHOP_OWNER">Shop Owner</option>
-                                    <option value="DRIVER">Driver</option>
-                                </select>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select the account type" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="CUSTOMER">Customer</SelectItem>
+                                        <SelectItem value="SHOP_OWNER">Shop Owner</SelectItem>
+                                        <SelectItem value="DRIVER">Driver</SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </div>
                         </div>
 
                         {/* Address Information */}
                         <div className="space-y-4">
                             <h3 className="text-xl font-semibold text-gray-900">Address</h3>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label htmlFor="street" className="block text-sm font-medium text-gray-700">
                                         Street
                                     </label>
-                                    <input
+                                    <Input
                                         type="text"
                                         id="street"
                                         name="street"
@@ -195,8 +210,8 @@ export default function RegisterPage() {
                                     <label htmlFor="number" className="block text-sm font-medium text-gray-700">
                                         Number
                                     </label>
-                                    <input
-                                        type="text"
+                                    <Input
+                                        type="number"
                                         id="number"
                                         name="number"
                                         required
@@ -212,8 +227,8 @@ export default function RegisterPage() {
                                     <label htmlFor="zipcode" className="block text-sm font-medium text-gray-700">
                                         Zipcode
                                     </label>
-                                    <input
-                                        type="text"
+                                    <Input
+                                        type="number"
                                         id="zipcode"
                                         name="zipcode"
                                         required
@@ -227,7 +242,7 @@ export default function RegisterPage() {
                                     <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                                         Country
                                     </label>
-                                    <input
+                                    <Input
                                         type="text"
                                         id="country"
                                         name="country"
@@ -239,31 +254,18 @@ export default function RegisterPage() {
                                 </div>
                             </div>
 
-                            <div>
-                                <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
-                                    Address Notes (Optional)
-                                </label>
-                                <textarea
-                                    id="notes"
-                                    name="notes"
-                                    value={formData.notes}
-                                    onChange={handleChange}
-                                    rows={3}
-                                    className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                />
-                            </div>
                         </div>
 
                         {/* Password Section */}
                         <div className="space-y-4">
                             <h3 className="text-xl font-semibold text-gray-900">Security</h3>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                            <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
                                 <div>
                                     <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                                         Password
                                     </label>
-                                    <input
+                                    <Input
                                         type="password"
                                         id="password"
                                         name="password"
@@ -279,7 +281,7 @@ export default function RegisterPage() {
                                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                                         Confirm Password
                                     </label>
-                                    <input
+                                    <Input
                                         type="password"
                                         id="confirmPassword"
                                         name="confirmPassword"
@@ -310,8 +312,8 @@ export default function RegisterPage() {
                             </Link>
                         </div>
                     </form>
-                </div>
-            </div>
+            </CardContent>
+        </Card>
         </div>
     )
 }

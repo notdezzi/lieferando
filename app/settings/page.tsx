@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import styles from './settings.module.css';
+import { redirect } from 'next/navigation';
 
 interface UserProfile {
   id: number;
@@ -41,6 +42,8 @@ export default function SettingsPage() {
 
     if (session) {
       fetchProfile();
+    }else{
+      redirect("/login");
     }
   }, [session]);
 

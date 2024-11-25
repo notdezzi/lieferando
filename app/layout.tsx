@@ -6,7 +6,7 @@ import drinkanddrivesmallw from '../public/drink_and_drive_small_white.png';
 import Image from "next/image";
 import Header from "@/components/header.component"
 import Footer from "@/components/footer.component"
-
+import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,6 +38,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Toaster />
         </NextAuthProvider>
       </body>
     </html>

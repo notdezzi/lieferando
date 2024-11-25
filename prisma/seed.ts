@@ -343,6 +343,28 @@ async function main() {
                 deliverylocation: locations[2].id
             }
         }),
+        // thrid Shop Owner
+        prisma.user.create({
+            data: {
+                name: "Bob2 Johnson",
+                username: "bob2johnson",
+                password: hashedPassword,
+                email: "bob2@example.com",
+                type: "SHOP_OWNER",
+                deliverylocation: locations[3].id
+            }
+        }),
+        // thrid Shop Owner
+        prisma.user.create({
+            data: {
+                name: "Bob22 Johnson",
+                username: "bob22johnson",
+                password: hashedPassword,
+                email: "bob22@example.com",
+                type: "SHOP_OWNER",
+                deliverylocation: locations[4].id
+            }
+        }),
         // Driver
         prisma.user.create({
             data: {
@@ -351,94 +373,528 @@ async function main() {
                 password: hashedPassword,
                 email: "mike@example.com",
                 type: "DRIVER",
-                deliverylocation: locations[3].id
+                deliverylocation: locations[5].id
             }
         })
     ])
 
-    // Create shops with different owners
-    const shops = await Promise.all([
-        prisma.shop.create({
-            data: {
-                ownerid: users[1].id, // Jane's shop
-                description: "Best Pizza in Town",
-                storelocation: locations[4].id
-            }
-        }),
-        prisma.shop.create({
-            data: {
-                ownerid: users[2].id, // Bob's shop
-                description: "Authentic Italian Cuisine",
-                storelocation: locations[5].id
-            }
-        })
-    ])
+    // Assuming you have users and locations arrays already created
 
-    // Create products
-    const products = await Promise.all([
-        prisma.product.create({
-            data: {
-                name: "Margherita Pizza",
-                description: "Classic tomato and mozzarella",
-                price: 12.99,
-                shopid: shops[0].id
-            }
-        }),
-        prisma.product.create({
-            data: {
-                name: "Pepperoni Pizza",
-                description: "Spicy pepperoni with cheese",
-                price: 14.99,
-                shopid: shops[0].id
-            }
-        }),
-        prisma.product.create({
-            data: {
-                name: "Pasta Carbonara",
-                description: "Creamy pasta with bacon",
-                price: 16.99,
-                shopid: shops[1].id
-            }
-        }),
-        prisma.product.create({
-            data: {
-                name: "Lasagna",
-                description: "Homemade lasagna with meat sauce",
-                price: 18.99,
-                shopid: shops[1].id
-            }
-        })
-    ])
+// Create shops with different owners and themes
+const shops = await Promise.all([
+    prisma.shop.create({
+        data: {
+            ownerid: users[1].id, // Jane's shop
+            description: "Best Pizza in Town",
+            storelocation: locations[4].id
+        }
+    }),
+    prisma.shop.create({
+        data: {
+            ownerid: users[2].id, // Bob's shop
+            description: "Authentic Italian Cuisine",
+            storelocation: locations[5].id
+        }
+    }),
+    prisma.shop.create({
+        data: {
+            ownerid: users[3].id, // Sarah's shop
+            description: "Fresh Sushi and Japanese Delights",
+            storelocation: locations[6].id
+        }
+    }),
+    prisma.shop.create({
+        data: {
+            ownerid: users[4].id, // Mike's shop
+            description: "Gourmet Burger Haven",
+            storelocation: locations[7].id
+        }
+    }),
+    prisma.shop.create({
+        data: {
+            ownerid: users[5].id, // Emily's shop
+            description: "Vegan Cafe & Bakery",
+            storelocation: locations[8].id
+        }
+    })
+])
 
-    // Create menus
-    const menus = await Promise.all([
-        prisma.menu.create({
-            data: {
-                shopid: shops[0].id,
-                title: "Pizza Menu",
-                description: "Our delicious pizzas",
-                products: {
-                    connect: [
-                        { id: products[0].id },
-                        { id: products[1].id }
-                    ]
-                }
+// Create products for each shop
+const products = await Promise.all([
+    // Pizza Shop Products
+    prisma.product.create({
+        data: {
+            name: "Margherita Pizza",
+            description: "Classic tomato and mozzarella",
+            price: 12.99,
+            shopid: shops[0].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Pepperoni Pizza",
+            description: "Spicy pepperoni with cheese",
+            price: 14.99,
+            shopid: shops[0].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Vegetarian Supreme Pizza",
+            description: "Loaded with fresh vegetables",
+            price: 15.99,
+            shopid: shops[0].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "BBQ Chicken Pizza",
+            description: "Tangy BBQ sauce with grilled chicken",
+            price: 16.99,
+            shopid: shops[0].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Quattro Formaggi Pizza",
+            description: "Four cheese pizza",
+            price: 17.99,
+            shopid: shops[0].id
+        }
+    }),
+
+    // Italian Cuisine Shop Products
+    prisma.product.create({
+        data: {
+            name: "Pasta Carbonara",
+            description: "Creamy pasta with bacon",
+            price: 16.99,
+            shopid: shops[1].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Lasagna",
+            description: "Homemade lasagna with meat sauce",
+            price: 18.99,
+            shopid: shops[1].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Risotto Milanese",
+            description: "Saffron risotto with parmesan",
+            price: 19.99,
+            shopid: shops[1].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Seafood Linguine",
+            description: "Mixed seafood in white wine sauce",
+            price: 22.99,
+            shopid: shops[1].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Tiramisu",
+            description: "Classic Italian dessert",
+            price: 8.99,
+            shopid: shops[1].id
+        }
+    }),
+
+    // Sushi Shop Products
+    prisma.product.create({
+        data: {
+            name: "Salmon Sushi Roll",
+            description: "Fresh salmon wrapped in rice and seaweed",
+            price: 14.99,
+            shopid: shops[2].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "California Roll",
+            description: "Crab, avocado, and cucumber",
+            price: 12.99,
+            shopid: shops[2].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Tuna Sashimi",
+            description: "Premium raw tuna slices",
+            price: 16.99,
+            shopid: shops[2].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Dragon Roll",
+            description: "Eel and avocado topped roll",
+            price: 18.99,
+            shopid: shops[2].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Miso Soup",
+            description: "Traditional Japanese soup",
+            price: 5.99,
+            shopid: shops[2].id
+        }
+    }),
+
+    // Burger Shop Products
+    prisma.product.create({
+        data: {
+            name: "Classic Cheeseburger",
+            description: "Beef patty with cheddar cheese",
+            price: 13.99,
+            shopid: shops[3].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Bacon Deluxe Burger",
+            description: "Burger with crispy bacon and special sauce",
+            price: 15.99,
+            shopid: shops[3].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Mushroom Swiss Burger",
+            description: "Topped with sautéed mushrooms and swiss cheese",
+            price: 16.99,
+            shopid: shops[3].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Veggie Burger",
+            description: "Plant-based patty with fresh toppings",
+            price: 14.99,
+            shopid: shops[3].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Loaded Fries",
+            description: "Crispy fries topped with cheese and bacon",
+            price: 8.99,
+            shopid: shops[3].id
+        }
+    }),
+
+    // Vegan Cafe Products
+    prisma.product.create({
+        data: {
+            name: "Avocado Toast",
+            description: "Sourdough with smashed avocado",
+            price: 11.99,
+            shopid: shops[4].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Quinoa Buddha Bowl",
+            description: "Roasted vegetables and quinoa",
+            price: 15.99,
+            shopid: shops[4].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Vegan Chocolate Cake",
+            description: "Rich chocolate cake without dairy",
+            price: 7.99,
+            shopid: shops[4].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Green Smoothie",
+            description: "Kale, spinach, and banana blend",
+            price: 6.99,
+            shopid: shops[4].id
+        }
+    }),
+    prisma.product.create({
+        data: {
+            name: "Lentil Curry",
+            description: "Spicy vegan curry with rice",
+            price: 16.99,
+            shopid: shops[4].id
+        }
+    })
+])
+
+// Create menus for each shop
+const menus = await Promise.all([
+    // Pizza Shop Menus
+    prisma.menu.create({
+        data: {
+            shopid: shops[0].id,
+            title: "Classic Pizzas",
+            description: "Our traditional pizza offerings",
+            products: {
+                connect: [
+                    { id: products[0].id },
+                    { id: products[1].id }
+                ]
             }
-        }),
-        prisma.menu.create({
-            data: {
-                shopid: shops[1].id,
-                title: "Pasta Menu",
-                description: "Fresh pasta dishes",
-                products: {
-                    connect: [
-                        { id: products[2].id },
-                        { id: products[3].id }
-                    ]
-                }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[0].id,
+            title: "Vegetarian Pizzas",
+            description: "Pizzas for plant lovers",
+            products: {
+                connect: [
+                    { id: products[2].id }
+                ]
             }
-        })
-    ])
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[0].id,
+            title: "Specialty Pizzas",
+            description: "Our unique pizza creations",
+            products: {
+                connect: [
+                    { id: products[3].id },
+                    { id: products[4].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[0].id,
+            title: "Family Pizzas",
+            description: "Large pizzas for sharing",
+            products: {
+                connect: [
+                    { id: products[0].id },
+                    { id: products[1].id },
+                    { id: products[3].id }
+                ]
+            }
+        }
+    }),
+
+    // Italian Cuisine Shop Menus
+    prisma.menu.create({
+        data: {
+            shopid: shops[1].id,
+            title: "Pasta Selection",
+            description: "Fresh homemade pasta dishes",
+            products: {
+                connect: [
+                    { id: products[5].id },
+                    { id: products[6].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[1].id,
+            title: "Risotto and Seafood",
+            description: "Delicate seafood and rice dishes",
+            products: {
+                connect: [
+                    { id: products[7].id },
+                    { id: products[8].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[1].id,
+            title: "Italian Classics",
+            description: "Traditional Italian favorites",
+            products: {
+                connect: [
+                    { id: products[5].id },
+                    { id: products[6].id },
+                    { id: products[7].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[1].id,
+            title: "Desserts",
+            description: "Sweet Italian endings",
+            products: {
+                connect: [
+                    { id: products[9].id }
+                ]
+            }
+        }
+    }),
+
+    // Sushi Shop Menus
+    prisma.menu.create({
+        data: {
+            shopid: shops[2].id,
+            title: "Classic Rolls",
+            description: "Traditional sushi rolls",
+            products: {
+                connect: [
+                    { id: products[10].id },
+                    { id: products[11].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[2].id,
+            title: "Sashimi Selection",
+            description: "Premium raw fish",
+            products: {
+                connect: [
+                    { id: products[12].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[2].id,
+            title: "Special Rolls",
+            description: "Chef's unique creations",
+            products: {
+                connect: [
+                    { id: products[13].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[2].id,
+            title: "Sides and Soups",
+            description: "Complementary dishes",
+            products: {
+                connect: [
+                    { id: products[14].id }
+                ]
+            }
+        }
+    }),
+
+    // Burger Shop Menus
+    prisma.menu.create({
+        data: {
+            shopid: shops[3].id,
+            title: "Classic Burgers",
+            description: "Our standard burger offerings",
+            products: {
+                connect: [
+                    { id: products[15].id },
+                    { id: products[16].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[3].id,
+            title: "Gourmet Burgers",
+            description: "Premium burger selections",
+            products: {
+                connect: [
+                    { id: products[17].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[3].id,
+            title: "Vegetarian Options",
+            description: "Plant-based burger choices",
+            products: {
+                connect: [
+                    { id: products[18].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[3].id,
+            title: "Sides",
+            description: "Perfect accompaniments",
+            products: {
+                connect: [
+                    { id: products[19].id }
+                ]
+            }
+        }
+    }),
+
+    // Vegan Cafe Menus
+    prisma.menu.create({
+        data: {
+            shopid: shops[4].id,
+            title: "Breakfast Favorites",
+            description: "Morning vegan delights",
+            products: {
+                connect: [
+                    { id: products[20].id },
+                    { id: products[22].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[4].id,
+            title: "Healthy Bowls",
+            description: "Nutritious plant-based meals",
+            products: {
+                connect: [
+                    { id: products[21].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[4].id,
+            title: "Drinks",
+            description: "Refreshing vegan beverages",
+            products: {
+                connect: [
+                    { id: products[23].id }
+                ]
+            }
+        }
+    }),
+    prisma.menu.create({
+        data: {
+            shopid: shops[4].id,
+            title: "Main Courses",
+            description: "Hearty vegan dishes",
+            products: {
+                connect: [
+                    { id: products[24].id }
+                ]
+            }
+        }
+    })
+])
 
     // Create orders
     const orders = await Promise.all([

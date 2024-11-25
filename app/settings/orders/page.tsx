@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { CartProvider } from '@/context/CartContext';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -10,13 +10,17 @@ export default async function OrdersPage(){
     try{
     const session = await getServerSession(authOptions)
     const orders = await prisma.order.findMany({
-        where:{userid:4},
+        where:{userid: 1},
         include:{
             user:true,
             shop:true,
             items:true,
         }
     });
+    
+    if (!session) {
+      redirect("/login")
+    }
     return(
         <div>
         <h1>All Orders</h1>

@@ -3,7 +3,14 @@ import { PrismaClient } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import { CartProvider } from '@/context/CartContext';
 import AddToCartButton from './AddToCartButton';
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 const prisma = new PrismaClient();
 
 export default async function StoreDetailPage({
@@ -31,31 +38,34 @@ export default async function StoreDetailPage({
 
   return (
     <CartProvider>
-      <div>
-        <h1>{store.owner.name}'s Store</h1>
-        <p>Description: {store.description}</p>
+      <div className="flex flex-col h-dvh items-center gap-5">
+        <h1 className='text-3xl font-bold py-2'>{store.owner.name}'s Store</h1>
+        <p className='text-1xl font-semibold py-2'>{store.description}</p>
         <section>
-          <h2>Menus</h2>
           {store.menus.map((menu) => (
-            <div key={menu.id}>
-              <h3>{menu.title}</h3>
-              <p>{menu.description}</p>
-              
-              <h4>Menu Products</h4>
-              {menu.products.map((product) => (
-                <div key={product.id} className="flex items-center justify-between mb-2">
-                  <p>{product.name} - ${product.price}</p>
-                  <AddToCartButton 
-                    product={{
-                      id: product.id,
-                      name: product.name,
-                      price: product.price,
-                      productId: product.id
-                    }} 
-                  />
-                </div>
-              ))}
-            </div>
+            <Card key={menu.id} className='w-[600px] my-5'>
+
+              <CardHeader>
+                <CardTitle>{menu.title}</CardTitle>
+                <CardDescription>{menu.description}</CardDescription>
+              </CardHeader>
+
+              <CardContent>
+                {menu.products.map((product) => (
+                  <div key={product.id} className="flex items-center justify-between mb-2">
+                    <p>{product.name} - ${product.price}</p>
+                    <AddToCartButton
+                      product={{
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        productId: product.id
+                      }}
+                    />
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
           ))}
         </section>
       </div>

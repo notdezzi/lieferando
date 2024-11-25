@@ -2,6 +2,8 @@
 'use client';
 
 import { useCart } from '@/context/CartContext';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import { useState } from 'react';
 
 interface Product {
@@ -14,11 +16,17 @@ interface Product {
 export default function AddToCartButton({ product }: { product: Product }) {
   const { addToCart } = useCart();
   const [isAdding, setIsAdding] = useState(false);
+  const { data: session } = useSession();
 
   const handleAddToCart = () => {
+    if(!session){
+      redirect("/login");
+    }else{
+      
     addToCart(product);
     setIsAdding(true);
     setTimeout(() => setIsAdding(false), 1000);
+  }
   };
 
   return (
