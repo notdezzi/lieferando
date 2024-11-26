@@ -1,13 +1,12 @@
 // context/CartContext.tsx
 'use client';
 
-//import { Session } from 'inspector/promises';
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 
 interface CartItem {
-  shopId: any;
+  shopId: number;
   id: number;
   name: string;
   price: number;
@@ -17,7 +16,7 @@ interface CartItem {
 
 interface CartContextType {
   cart: CartItem[];
-  getShopId: () => number;
+  getShopId: () => number | null;  // Updated return type
   addToCart: (product: Omit<CartItem, 'quantity'>) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
@@ -26,7 +25,6 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
-
 
 export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -43,11 +41,12 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
+
   const addToCart = (product: Omit<CartItem, 'quantity'>) => {
-    const session = getServerSession
+    const session = getServerSession;
     if(!session){
-      redirect("/register")
-    }else{
+      redirect("/register");
+    } else {
       setCart(prevCart => {
         const existingItem = prevCart.find(item => item.productId === product.productId);
         if (existingItem) {
@@ -56,7 +55,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
               ? {...item, quantity: item.quantity + 1}
               : item
           );
-        }else{
+        } else {
           return [...prevCart, {...product, quantity: 1}];
         }
       });
@@ -84,8 +83,9 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
   };
 
   const getShopId = () => {
-    return cart[0].shopId;
-  }
+    // Return null if cart is empty, otherwise return the first item's shopId
+    return cart.length > 0 ? cart[0].shopId : null;
+  };
 
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);

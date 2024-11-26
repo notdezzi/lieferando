@@ -56,7 +56,7 @@ export default async function StoreDetailPage({
                     <p>{product.name} - ${product.price}</p>
                     <AddToCartButton
                       product={{
-                        id: product.id,
+                        id: parseInt(storeId),
                         name: product.name,
                         price: product.price,
                         productId: product.id

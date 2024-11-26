@@ -37,12 +37,39 @@ function OrderPageContent() {
 
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [orderNotes, setOrderNotes] = useState('');
-  const [minorder, setMinOrder] = useState('');
+  const [minorder, setMinOrder] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingLocation, setIsFetchingLocation] = useState(true);
   const [error, setError] = useState('');
 
-  
+  useEffect(() => {
+    const fetchMinOrder = async () => {
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      const shopId = cart[0].id
+      
+      if (!shopId) {
+        setMinOrder(null);
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/minorder?shopId=${shopId}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch minimum order');
+        }
+
+        const data = await response.json();
+        console.log(data)
+        setMinOrder(data.minOrder);
+      } catch (error) {
+        console.error('Error fetching minimum order:', error);
+        setMinOrder(null);
+      }
+    };
+
+    fetchMinOrder();
+  }, [cart]);
 
   // Fetch user location
   useEffect(() => {
@@ -66,19 +93,11 @@ function OrderPageContent() {
       } finally {
         setIsFetchingLocation(false);
       }
-      getMinOrder()
     };
 
     fetchLocation();
   }, [session]);
 
-  const getMinOrder = async ()=>{
-    const response = await fetch(
-      `/api/minorder?shopId=${getShopId()}`
-    )
-    console.log(response)
-    // setMinOrder(data)
-  }
 
   const validateOrder = async () => {
     if (!session?.user?.email) {
@@ -201,10 +220,10 @@ function OrderPageContent() {
               ))}
               <div className="border-t pt-2 mt-4">
                 
-              {(parseInt(minorder) - getTotalPrice() > 0) ?(
+              {(minorder - getTotalPrice() > 0) ?(
                 <div className='flex justify-between'>
                   <span>Bis Mindestbestellwert erreicht</span>
-                  <span className='min-w-24'>{(parseInt(minorder) - getTotalPrice()).toFixed(2)}$</span>
+                  <span className='min-w-24'>{(minorder - getTotalPrice()).toFixed(2)}$</span>
                 </div>
               ):(
                 <span></span>
