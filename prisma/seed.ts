@@ -386,35 +386,40 @@ const shops = await Promise.all([
         data: {
             ownerid: users[1].id, // Jane's shop
             description: "Best Pizza in Town",
-            storelocation: locations[4].id
+            storelocation: locations[4].id,
+            minorder: 20.0
         }
     }),
     prisma.shop.create({
         data: {
             ownerid: users[2].id, // Bob's shop
             description: "Authentic Italian Cuisine",
-            storelocation: locations[5].id
+            storelocation: locations[5].id,
+            minorder: 20.0
         }
     }),
     prisma.shop.create({
         data: {
             ownerid: users[3].id, // Sarah's shop
             description: "Fresh Sushi and Japanese Delights",
-            storelocation: locations[6].id
+            storelocation: locations[6].id,
+            minorder: 20.0
         }
     }),
     prisma.shop.create({
         data: {
             ownerid: users[4].id, // Mike's shop
             description: "Gourmet Burger Haven",
-            storelocation: locations[7].id
+            storelocation: locations[7].id,
+            minorder: 20.0
         }
     }),
     prisma.shop.create({
         data: {
             ownerid: users[5].id, // Emily's shop
             description: "Vegan Cafe & Bakery",
-            storelocation: locations[8].id
+            storelocation: locations[8].id,
+            minorder: 20.0
         }
     })
 ])

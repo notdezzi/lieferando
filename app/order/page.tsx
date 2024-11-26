@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import OneMoreButton from './OneMoreButton';
 import OneLessButton from './OneLessButton';
 import RemoveButton from './RemoveButton';
+import { prisma } from '@/lib/prisma';
 
 interface UserLocation {
   id: number;
@@ -31,14 +32,17 @@ interface CartItem {
 
 function OrderPageContent() {
   const { data: session } = useSession();
-  const { cart, getTotalPrice, clearCart } = useCart();
+  const { cart, getTotalPrice, clearCart, getShopId } = useCart();
   const router = useRouter();
 
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [orderNotes, setOrderNotes] = useState('');
+  const [minorder, setMinOrder] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingLocation, setIsFetchingLocation] = useState(true);
   const [error, setError] = useState('');
+
+  
 
   // Fetch user location
   useEffect(() => {
@@ -62,12 +66,21 @@ function OrderPageContent() {
       } finally {
         setIsFetchingLocation(false);
       }
+      getMinOrder()
     };
 
     fetchLocation();
   }, [session]);
 
-  const validateOrder = () => {
+  const getMinOrder = async ()=>{
+    const response = await fetch(
+      `/api/minorder?shopId=${getShopId()}`
+    )
+    console.log(response)
+    // setMinOrder(data)
+  }
+
+  const validateOrder = async () => {
     if (!session?.user?.email) {
       throw new Error('Please log in to place an order');
     }
@@ -86,6 +99,7 @@ function OrderPageContent() {
     if (hasMultipleShops) {
       throw new Error('All items must be from the same shop');
     }
+    
   };
 
   const handlePlaceOrder = async () => {
@@ -151,8 +165,8 @@ function OrderPageContent() {
           ) : (
             <div className="space-y-2">
               {cart.map((item) => (
-                <div key={item.productId} className="flex justify-between items-center">
-                    <span className="font-medium flex gap-2 min-w-72">
+                <div key={item.productId} className="flex justify-between items-center align-center">
+                    <span className="font-medium flex gap-2 min-w-72 align-center">
                       <RemoveButton
                       product={{
                       id:item.id,
@@ -161,7 +175,7 @@ function OrderPageContent() {
                       }}/>
                       {item.name}
                       </span>
-                      <span className="text-muted-foreground flex gap-2">
+                      <span className="text-muted-foreground flex gap-2 align-center">
                       <OneLessButton
                       product={{
                       id:item.id,
@@ -186,6 +200,18 @@ function OrderPageContent() {
                 </div>
               ))}
               <div className="border-t pt-2 mt-4">
+                
+              {(parseInt(minorder) - getTotalPrice() > 0) ?(
+                <div className='flex justify-between'>
+                  <span>Bis Mindestbestellwert erreicht</span>
+                  <span className='min-w-24'>{(parseInt(minorder) - getTotalPrice()).toFixed(2)}$</span>
+                </div>
+              ):(
+                <span></span>
+              )
+              }
+
+
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
                   <span className='min-w-24'>{getTotalPrice().toFixed(2)}$</span>

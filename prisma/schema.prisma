@@ -70,7 +70,7 @@ model Shop {
     description     String
     storelocation   Int      @unique
     location        Location @relation(fields: [storelocation], references: [id])
-    minbestellwert  Float?
+    minorder        Float?
     menus           Menu[]
 
     Product Product[]
