@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import { CartProvider } from '@/context/CartContext';
+import { Minus, Plus, Trash } from 'lucide-react';
 
 interface UserLocation {
   id: number;
@@ -111,7 +112,7 @@ function OrderPageContent() {
       }
 
       // Clear cart and redirect on success
-      clearCart();
+      //clearCart();
       router.push('/order/confirmation');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to place order. Please try again.');
@@ -147,9 +148,9 @@ function OrderPageContent() {
             <div className="space-y-2">
               {cart.map((item) => (
                 <div key={item.productId} className="flex justify-between items-center">
-                  <div>
-                    <span className="font-medium">{item.name}</span>
-                    <span className="text-muted-foreground"> x {item.quantity}</span>
+                  <div className='flex gap-2 justify-between w-50'>
+                    <span className="font-medium flex gap-2"><Trash/>{item.name}</span>
+                    <span className="text-muted-foreground flex gap-2"><Minus/>{item.quantity}<Plus/></span>
                   </div>
                   <span>${(item.price * item.quantity).toFixed(2)}</span>
                 </div>
