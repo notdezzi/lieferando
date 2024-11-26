@@ -64,13 +64,14 @@ model Order {
 }
 
 model Shop {
-    id            Int      @id @default(autoincrement())
-    ownerid       Int      @unique
-    owner         User     @relation(fields: [ownerid], references: [id])
-    description   String
-    storelocation Int      @unique
-    location      Location @relation(fields: [storelocation], references: [id])
-    menus         Menu[]
+    id              Int      @id @default(autoincrement())
+    ownerid         Int      @unique
+    owner           User     @relation(fields: [ownerid], references: [id])
+    description     String
+    storelocation   Int      @unique
+    location        Location @relation(fields: [storelocation], references: [id])
+    minbestellwert  Float?
+    menus           Menu[]
 
     Product Product[]
 
