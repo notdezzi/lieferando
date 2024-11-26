@@ -148,11 +148,11 @@ function OrderPageContent() {
             <div className="space-y-2">
               {cart.map((item) => (
                 <div key={item.productId} className="flex justify-between items-center">
-                  <div className='flex gap-2 justify-between w-50'>
-                    <span className="font-medium flex gap-2"><Trash/>{item.name}</span>
+                  {/* <div className='flex gap-2 justify-between w-50'> */}
+                    <span className="font-medium flex gap-2 min-w-44"><Trash/>{item.name}</span>
                     <span className="text-muted-foreground flex gap-2"><Minus/>{item.quantity}<Plus/></span>
-                  </div>
-                  <span>${(item.price * item.quantity).toFixed(2)}</span>
+                  {/* </div> */}
+                  <span className='min-w-24 flex-direction-rowreversed'>${(item.price * item.quantity).toFixed(2)}</span>
                 </div>
               ))}
               <div className="border-t pt-2 mt-4">
