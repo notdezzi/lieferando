@@ -6,7 +6,11 @@ import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import { CartProvider } from '@/context/CartContext';
-import { Minus, Plus, Trash } from 'lucide-react';
+import { Minus, Plus, Space, Trash } from 'lucide-react';
+import { Button } from "@/components/ui/button"
+import OneMoreButton from './OneMoreButton';
+import OneLessButton from './OneLessButton';
+import RemoveButton from './RemoveButton';
 
 interface UserLocation {
   id: number;
@@ -148,12 +152,35 @@ function OrderPageContent() {
             <div className="space-y-2">
               {cart.map((item) => (
                 <div key={item.productId} className="flex justify-between items-center">
-                    <span className="font-medium flex gap-2 min-w-44"><Trash/>{item.name}</span>
-                    <span className="text-muted-foreground flex gap-2"><Minus/>{item.quantity}<Plus/></span>
+                    <span className="font-medium flex gap-2 min-w-72">
+                      <RemoveButton
+                      product={{
+                      id:item.id,
+                      productId:item.id,
+                      count:item.quantity
+                      }}/>
+                      {item.name}
+                      </span>
+                      <span className="text-muted-foreground flex gap-2">
+                      <OneLessButton
+                      product={{
+                      id:item.id,
+                      productId:item.id,
+                      count:item.quantity
+                      }}/>
+                      {item.quantity}
+                      <OneMoreButton
+                      product={{
+                      id: item.id,
+                      name: item.name,
+                      price: item.price,
+                      productId:item.id
+                    }}/>
+                    </span>
                     {(item.price*item.quantity) > 10 ?(
-                      <span className='min-w-24'>${(item.price * item.quantity).toFixed(2)}</span>
+                      <span className='min-w-24'>{(item.price * item.quantity).toFixed(2)}$</span>
                     ):(
-                      <span className='min-w-24'>$0{(item.price * item.quantity).toFixed(2)}</span>
+                      <span className='min-w-24'>&nbsp;&nbsp;{(item.price * item.quantity).toFixed(2)}$</span>
                     )
                     }
                 </div>
@@ -161,7 +188,7 @@ function OrderPageContent() {
               <div className="border-t pt-2 mt-4">
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
-                  <span className='min-w-24'>${getTotalPrice().toFixed(2)}</span>
+                  <span className='min-w-24'>{getTotalPrice().toFixed(2)}$</span>
                 </div>
               </div>
             </div>
