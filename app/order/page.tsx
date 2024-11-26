@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import { CartProvider } from '@/context/CartContext';
+import styles from '@/app/order/page.module.css'
 
 interface UserLocation {
   id: number;
@@ -122,7 +123,7 @@ function OrderPageContent() {
 
   if (!session) {
     return (
-      <div className="">Please log in to place an order</div>
+      <div className={styles.plslogin}>Please log in to place an order</div>
     );
   }
 
@@ -176,7 +177,7 @@ function OrderPageContent() {
               )}
             </div>
           ) : (
-            <div className="">error</div>
+            <div className={styles.errormsg}>error</div>
           )}
         </section>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import drinkanddrivesmallw from '../public/drink_and_drive_small_white.png';
+import drinkanddrivesmallw from '../public/dndsmallwhite.png';
 import Image from "next/image";
 import styles from '../app/page.module.css' //Checken ob components eigene css haben können und dann umlagern
 import styles2 from '../app/header.module.css' //Checken ob components eigene css haben können und dann umlagern
@@ -13,8 +13,8 @@ export default function Header(){
             alt="Logo"
             src={drinkanddrivesmallw}
             style={{
-              maxWidth: '200px',
-              height: 'auto',
+              maxWidth: '100px',
+              height: '70px',
             }}
             />
             <div className={styles.wrappersearchpg}>
