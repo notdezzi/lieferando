@@ -14,12 +14,12 @@ export default async function OrderConfirmedPage() {
             <button
               className={styles.paypalButton}
               //onClick={}
-            >Pay with PayPal
+            >Pay with PayPal(Demo)
             </button>
         <button
           className="w-full"
           //onClick={}
-        >Pay with Credit Card
+        >Pay with Credit Card(Demo)
         </button>
         <button
           className={styles.backButton}
