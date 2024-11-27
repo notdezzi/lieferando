@@ -14,6 +14,7 @@ interface Product {
   name: string;
   price: number;
   productId: number;
+  shopId: number;
 }
 
 export default function OneMoreButton({product}:{product: Product}){

@@ -10,7 +10,6 @@ import { Minus, Plus } from 'lucide-react';
 
 
 interface Product {
-  id: number;
   productId: number;
   count: number;
 }
@@ -22,7 +21,7 @@ export default function OneLessButton({product}:{product: Product}){
 
     const handleUpdateQuantity = () => {
         if(product.count > 0){
-            updateQuantity(product.id,product.count-1);
+            updateQuantity(product.productId,product.count-1);
             setIsAdding(true);
             setTimeout(() => setIsAdding(false),1000);
         }

@@ -11,6 +11,7 @@ interface Product {
   name: string;
   price: number;
   productId: number;
+  shopId: number;
 }
 
 export default function AddToCartButton({ product }: { product: Product }) {

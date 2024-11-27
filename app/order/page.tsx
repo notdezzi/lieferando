@@ -188,8 +188,7 @@ function OrderPageContent() {
                     <span className="font-medium flex gap-2 min-w-72 align-center">
                       <RemoveButton
                       product={{
-                      id:item.id,
-                      productId:item.id,
+                      productId:item.productId,
                       count:item.quantity
                       }}/>
                       {item.name}
@@ -197,8 +196,7 @@ function OrderPageContent() {
                       <span className="text-muted-foreground flex gap-2 align-center">
                       <OneLessButton
                       product={{
-                      id:item.id,
-                      productId:item.id,
+                      productId:item.productId,
                       count:item.quantity
                       }}/>
                       {item.quantity}
@@ -207,7 +205,8 @@ function OrderPageContent() {
                       id: item.id,
                       name: item.name,
                       price: item.price,
-                      productId:item.id
+                      productId:item.productId,
+                      shopId: item.shopId
                     }}/>
                     </span>
                     {(item.price*item.quantity) > 10 ?(
