@@ -123,30 +123,29 @@ function OrderPageContent() {
 
   const handlePlaceOrder = async () => {
     try {
-      setError('');
-      setIsLoading(true);
-
+      // setError('');
+      // setIsLoading(true);
       // Validate order
       validateOrder();
 
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          products: cart.map(item => ({
-            productId: item.productId,
-            quantity: item.quantity
-          })),
-          totalPrice: getTotalPrice(),
-          notes: orderNotes,
-          locationId: userLocation!.id
-        })
-      });
+      // const response = await fetch('/api/orders', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     products: cart.map(item => ({
+      //       productId: item.productId,
+      //       quantity: item.quantity
+      //     })),
+      //     totalPrice: getTotalPrice(),
+      //     notes: orderNotes,
+      //     locationId: userLocation!.id
+      //   })
+      // });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to place order');
-      }
+      // if (!response.ok) {
+      //   const errorData = await response.json();
+      //   throw new Error(errorData.error || 'Failed to place order');
+      // }
 
       // Clear cart and redirect on success
       //clearCart();
