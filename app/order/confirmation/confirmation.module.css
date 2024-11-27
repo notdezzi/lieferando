@@ -7,3 +7,13 @@
     border: 0px;
     width:100%;
 }
+
+.backButton{
+    background-color: #b30000;
+    color: #fff;
+    height: 40px;
+    padding: 8px;
+    border-radius: 75px;
+    border: 0px;
+    width:100%;
+}

@@ -22,7 +22,7 @@ export default async function OrderConfirmedPage() {
         >Pay with Credit Card
         </button>
         <button
-          className="w-full"
+          className={styles.backButton}
           //onClick={}
         >Back to Order
         </button>
