@@ -221,18 +221,26 @@ function OrderPageContent() {
                 
               {(minorder - getTotalPrice() > 0) ?(
                 <div className='flex justify-between'>
-                  <span>Bis Mindestbestellwert erreicht</span>
-                  <span className='min-w-24'>{(minorder - getTotalPrice()).toFixed(2)}$</span>
+                  <span>until minimum order value reached</span>
+                  {(minorder - getTotalPrice() >10 ?(
+                    <span className='min-w-24'>{(minorder - getTotalPrice()).toFixed(2)}$</span>
+                  ):(
+                    <span className='min-w-24'>&nbsp;&nbsp;{(minorder - getTotalPrice()).toFixed(2)}$</span>
+                  ))}
                 </div>
               ):(
-                <span></span>
+                <span>minimum order value reached</span>
               )
               }
 
-
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
-                  <span className='min-w-24'>{getTotalPrice().toFixed(2)}$</span>
+                  {(getTotalPrice() > 10 ?(
+                    <span className='min-w-24'>{getTotalPrice().toFixed(2)}$</span>
+                  ):(
+                    <span className='min-w-24'>&nbsp;&nbsp;{getTotalPrice().toFixed(2)}$</span>
+                  ))}
+                  
                 </div>
               </div>
             </div>
@@ -267,7 +275,7 @@ function OrderPageContent() {
         <button
           className="w-full"
           onClick={handlePlaceOrder}
-          disabled={isLoading || cart.length === 0 || !userLocation}
+          disabled={isLoading || cart.length === 0 || !userLocation || (minorder - getTotalPrice() > 0)}
         >
           {/* Place Order Button */}
           {isLoading ? (
@@ -275,7 +283,7 @@ function OrderPageContent() {
               Placing Order...
             </>
           ) : (
-            'Place Order'
+            'Payment options (Only Demo)'
           )}
         </button>
       </div>
