@@ -150,7 +150,7 @@ function OrderPageContent() {
 
       // Clear cart and redirect on success
       //clearCart();
-      router.push('/order/confirmation');
+      router.push('/order/payment');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to place order. Please try again.');
     } finally {
