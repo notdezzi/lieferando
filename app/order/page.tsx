@@ -283,7 +283,7 @@ function OrderPageContent() {
               Placing Order...
             </>
           ) : (
-            'Payment options (Only Demo)'
+            'Pay(Only Demo)'
           )}
         </button>
       </div>
