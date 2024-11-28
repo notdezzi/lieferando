@@ -7,7 +7,7 @@ import {
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Image from "next/image";
-import drinkanddrivealpha from '../public/drinkanddrivealpha.png';
+import drinkanddrivealpha from '../public/logo.svg';
 import bgimg from '../public/bgimg.png';
 import Link from "next/link";
 
