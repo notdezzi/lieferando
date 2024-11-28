@@ -23,7 +23,7 @@ export default async function Home() {
         justifyContent: "center",
         alignItems: "center",
         width: "100vw",
-        height: "90vh",
+        height: "60vh",
         marginTop: "80px",
         /*backgroundImage: "url(${bgimg})", -----  Check later
         backgroundSize: "cover",
