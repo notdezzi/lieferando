@@ -5,6 +5,7 @@ import styles from '@/app/order/payment/payment.module.css'
 import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
+import { CartProvider } from '@/context/CartContext';
 
 
 const prisma = new PrismaClient();
@@ -25,7 +26,7 @@ interface CartItem {
   shopId: number;
 }
 
-export default function OrderPaymentPage() {
+function OrderPaymentPage() {
 
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -34,56 +35,24 @@ export default function OrderPaymentPage() {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const router = useRouter();
 
-  const handlePlaceOrder = async () => {
-    try {
-      setError('');
-      setIsLoading(true);
-
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          products: cart.map(item => ({
-            productId: item.productId,
-            quantity: item.quantity
-          })),
-          totalPrice: getTotalPrice(),
-          notes: orderNotes,
-          locationId: userLocation!.id
-        })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to place order');
-      }
-
-      //Clear cart and redirect on success
-      //clearCart();
-      router.push('/order/confirmation');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to place order. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
 return (
   <div className="max-w-2xl mx-auto p-4 space-y-6">
     <div className="space-y-6">
       {/* Payment Options */}
       <h2 className="text-xl font-semibold">Payment Options</h2>
       <div className="space-y-2 flex flex-col gap-2">
+        <a href='/order/confirmation?paymentMethod=PayPal'>
         <button
           className={styles.paypalButton}
-        onClick={handlePlaceOrder}
         >Pay with PayPal(Demo)
         </button>
+        </a>
+        <a href='/order/confirmation?paymentMethod=Credit Card'>
         <button
           className="w-full"
-        onClick={handlePlaceOrder}
         >Pay with Credit Card(Demo)
         </button>
+        </a>
         <a href="/order">
           <button
             className={styles.backButton}
@@ -93,3 +62,11 @@ return (
     </div>
   </div>
 );}
+
+export default function OrderPayment() {
+  return (
+    <CartProvider>
+      <OrderPaymentPage/>
+    </CartProvider>
+  );
+}

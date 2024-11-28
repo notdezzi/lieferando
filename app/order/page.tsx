@@ -118,7 +118,6 @@ function OrderPageContent() {
     if (hasMultipleShops) {
       throw new Error('All items must be from the same shop');
     }
-    
   };
 
   const handlePlaceOrder = async () => {
@@ -172,6 +171,7 @@ function OrderPageContent() {
     );
   }
 
+  validateOrder()
   return (
     <div className="max-w-2xl mx-auto p-4 space-y-6">
       <div className="space-y-6">
@@ -271,9 +271,9 @@ function OrderPageContent() {
         {error && (
           <div className="">error</div>
         )}
+        <a href='/order/payment'>
         <button
           className="w-full"
-          onClick={handlePlaceOrder}
           disabled={isLoading || cart.length === 0 || !userLocation || (minorder - getTotalPrice() > 0)}
         >
           {/* Place Order Button */}
@@ -285,6 +285,7 @@ function OrderPageContent() {
             'Pay(Only Demo)'
           )}
         </button>
+        </a>
       </div>
     </div>
   );
