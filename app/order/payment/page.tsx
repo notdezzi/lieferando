@@ -59,7 +59,7 @@ export default function OrderPaymentPage() {
       }
 
       //Clear cart and redirect on success
-      clearCart();
+      //clearCart();
       router.push('/order/confirmation');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to place order. Please try again.');
@@ -76,12 +76,12 @@ return (
       <div className="space-y-2 flex flex-col gap-2">
         <button
           className={styles.paypalButton}
-        //onClick={}
+        onClick={handlePlaceOrder}
         >Pay with PayPal(Demo)
         </button>
         <button
           className="w-full"
-        //onClick={}
+        onClick={handlePlaceOrder}
         >Pay with Credit Card(Demo)
         </button>
         <a href="/order">
