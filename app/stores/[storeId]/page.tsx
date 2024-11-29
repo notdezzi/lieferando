@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import Link from 'next/link';
 const prisma = new PrismaClient();
 
 export default async function StoreDetailPage({
@@ -41,6 +42,7 @@ export default async function StoreDetailPage({
       <div className="flex flex-col h-dvh items-center gap-5">
         <h1 className='text-3xl font-bold py-2'>{store.owner.name}'s Store</h1>
         <p className='text-1xl font-semibold py-2'>{store.description}</p>
+        <Link href={'/stores/'+storeId+'/ratings'}>Go to Ratings</Link>
         <section>
           {store.menus.map((menu) => (
             <Card key={menu.id} className='w-[600px] my-5'>

@@ -1,5 +1,14 @@
+
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 const prisma = new PrismaClient();
 
@@ -47,7 +56,7 @@ export default async function StoreRatingsPage({
   };
 
   return (
-    <div>
+    <div className='flex flex-col h-dvh items-center gap-5'>
       <Link href={`/stores/${storeId}`}>← Back to Store</Link>
       
       <h1>{store.owner.name}'s Store - Ratings</h1>
@@ -55,7 +64,7 @@ export default async function StoreRatingsPage({
       
       <div>
         <h2>Overall Rating: {Math.round(getAverageRating(store.Rating))} / 5</h2>
-        <div>{generateStarDivs(Math.round(getAverageRating(store.Rating)))}</div>
+        <div className='flex gap-2'>{generateStarDivs(Math.round(getAverageRating(store.Rating)))}</div>
         <p>Total Reviews: {store.Rating.length}</p>
       </div>
 
@@ -65,15 +74,20 @@ export default async function StoreRatingsPage({
       ) : (
         <div>
           {store.Rating.map((rating) => (
-            <div key={rating.id}>
-              <div>
+            <Card key={rating.id} className='w-[600px] my-5'>
+              
+              <CardHeader>
+                <CardTitle>{rating.driver.name}</CardTitle>
+                <CardDescription>{rating.description}</CardDescription>
+              </CardHeader>
+              <CardDescription>
+
+              </CardDescription>
+              <CardFooter className='flex gap-2'>
                 {generateStarDivs(Math.round(rating.rating))}
                 <span> ({rating.rating}/5)</span>
-              </div>
-              <p>Reviewed by: {rating.driver.name}</p>
-              <p>{rating.description}</p>
-              <hr />
-            </div>
+              </CardFooter>
+            </Card>
           ))}
         </div>
       )}

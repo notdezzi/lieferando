@@ -41,18 +41,18 @@ return (
       {/* Payment Options */}
       <h2 className="text-xl font-semibold">Payment Options</h2>
       <div className="space-y-2 flex flex-col gap-2">
-        <a href='/order/confirmation?paymentMethod=PayPal'>
+        <a href='/order/confirmation/PayPal'>
         <button
           className={styles.paypalButton}
         >Pay with PayPal(Demo)
         </button>
         </a>
-        <a href='/order/confirmation?paymentMethod=Credit Card'>
+        {/* <a href='/order/confirmation/CreditCard'>
         <button
           className="w-full"
         >Pay with Credit Card(Demo)
         </button>
-        </a>
+        </a> */}
         <a href="/order">
           <button
             className={styles.backButton}

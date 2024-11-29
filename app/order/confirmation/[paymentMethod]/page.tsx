@@ -1,6 +1,6 @@
 'use client';
 import styles from '@/app/order/payment/payment.module.css'
-import { useEffect, useState } from 'react';
+import { AwaitedReactNode, JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import { CartProvider } from '@/context/CartContext';
@@ -14,8 +14,8 @@ interface UserLocation {
   country: string;
   notes: string;
 }
-
-function OrderConfirmationPage() {
+  
+function OrderConfirmationPage(){
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { cart, getTotalPrice, clearCart, getShopId } = useCart();
@@ -23,23 +23,6 @@ function OrderConfirmationPage() {
   const [orderNotes, setOrderNotes] = useState('');
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [method, setMethod] = useState <string | null>(null)
-
-  useEffect(() =>{
-    const fetchMethod = async () =>{
-      try{
-        const response = await fetch(`/api/confirmation?paymentMethod=${method}`);
-        if(!response.ok){
-          throw new Error('Failed to fetch payment method');
-        }
-        const data = await response.json();
-        console.log(data)
-        setMethod(data.method);
-      } catch (error) {
-        console.error('Error fetching payment method:', error);
-        setMethod(null);
-      }
-      }
-    })
 
   const handlePlaceOrder = async () => {
     try {
@@ -95,7 +78,8 @@ function OrderConfirmationPage() {
             </div>
             ))}
             <div className="flex justify-between font-semibold">
-            <span>Zahlungsmethode{method}</span>
+            <span>Zahlungsmethode</span>
+            <span>PayPal</span>
             <span>Total</span>
             <span className='min-w-24'>{getTotalPrice().toFixed(2)}$</span>
             
@@ -109,14 +93,12 @@ function OrderConfirmationPage() {
             </div>
           </div>
         </div>
-      
     )
 }
-
 export default function OrderConfirmation() {
   return (
     <CartProvider>
-      <OrderConfirmationPage />
+      <OrderConfirmationPage/>
     </CartProvider>
   );
 }
