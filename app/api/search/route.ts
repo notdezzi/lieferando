@@ -1,7 +1,7 @@
 // app/api/search/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
-import { getServerSession } from 'next-auth'
+import { auth } from "@/lib/auth";
 
 const prisma = new PrismaClient()
 
@@ -32,7 +32,7 @@ function isWithinRadius(zipcode1: number, zipcode2: number, radiusInZips: number
 
 export async function GET(request: NextRequest) {
     try {
-        const session = await getServerSession()
+        const session = await auth()
         if (!session) {
             return NextResponse.json(
                 { error: 'Unauthorized' },

@@ -1,13 +1,12 @@
 // app/dashboard/page.tsx
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Adjust the path as needed
 import { PrismaClient } from '@prisma/client';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import {
+import { auth } from "@/lib/auth";
   ChartConfig,
   ChartContainer,
   ChartTooltip,
@@ -17,8 +16,7 @@ import {
 const prisma = new PrismaClient();
 
 export default async function StoreDashboard() {
-  // Use getServerSession with NextAuth options
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) {
     return <div>Please log in</div>;
   }

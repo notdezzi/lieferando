@@ -1,14 +1,13 @@
 // app/api/user/location/route.ts
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
 import { PrismaClient } from '@prisma/client';
-import { authOptions } from '../../auth/[...nextauth]/route';
+import { auth } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     
     if (!session?.user?.email) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });

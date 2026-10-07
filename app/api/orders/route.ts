@@ -1,15 +1,14 @@
 // app/api/orders/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
 import { PrismaClient } from '@prisma/client';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { auth } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
 // POST endpoint to create an order
 export async function POST(request: Request) {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
         
         if (!session?.user?.email) {
             return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });

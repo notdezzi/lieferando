@@ -1,14 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { notFound, redirect } from 'next/navigation';
 import { CartProvider } from '@/context/CartContext';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
 export default async function OrdersPage(){
     try{
-    const session = await getServerSession(authOptions)
+    const session = await auth()
     const orders = await prisma.order.findMany({
         where:{userid: 1},
         include:{

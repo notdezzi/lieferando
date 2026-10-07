@@ -1,17 +1,16 @@
 // app/dashboard/products/new/page.tsx
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { PrismaClient } from '@prisma/client';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { redirect } from 'next/navigation';
+import { auth } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
 export default async function NewProductPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) {
     return <div>Please log in</div>;
   }

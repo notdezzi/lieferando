@@ -17,7 +17,7 @@ const prisma = new PrismaClient();
 export default async function StoreDetailPage({
   params
 }: {
-  params: { storeId: string }
+  params: Promise<{ storeId: string }>
 }) {
   const { storeId } = await params;
 
