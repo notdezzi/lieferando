@@ -1,0 +1,2 @@
+Made lieferando — a full food-ordering platform where customers browse stores, fill a cart and pay, while shop owners get their own analytics dashboard, all on one Next.js + Prisma + MySQL stack.
+The logo says Drink & Drive. The code says otherwise.

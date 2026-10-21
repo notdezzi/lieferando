@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>lieferando — Drink &amp; Drive launch</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Geist Sans";
+        src: url("assets/fonts/GeistVF.woff") format("woff");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("assets/fonts/GeistMonoVF.woff") format("woff");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+      :root {
+        --bg-light: #f7fbf8;
+        --bg-dark: #080d0a;
+        --ink: #080d0a;
+        --muted: #55645b;
+        --green: #169c16;
+        --green-deep: #0e7d0e;
+        --primary: #5eaf85;
+        --secondary: #97ceb2;
+        --accent: #7dc7a1;
+        --chip: #d9efe0;
+        --card-dark: #12201a;
+        --muted-dark: #9db8a8;
+        --light-dark: #e8f5ec;
+      }
+      body {
+        margin: 0;
+        background: var(--bg-light);
+        font-family: "Geist Sans", system-ui, sans-serif;
+        color: var(--ink);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .inner {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        pointer-events: none;
+      }
+      /* ---------- Scene 1: hook ---------- */
+      #s1-hungry {
+        position: absolute;
+        top: 250px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 150px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+      #s1-searchrow {
+        position: absolute;
+        top: 540px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+      }
+      #s1-searchbar {
+        width: 760px;
+        height: 76px;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 10px 34px rgba(8, 13, 10, 0.10), 0 2px 6px rgba(8, 13, 10, 0.06);
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 0;
+      }
+      #s1-input {
+        position: relative;
+        flex: 1;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #s1-placeholder {
+        font-size: 25px;
+        color: #6f7a73;
+        white-space: nowrap;
+      }
+      #s1-typed {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 27px;
+        font-weight: 600;
+        font-family: "Geist Mono", monospace;
+        color: var(--ink);
+      }
+      #s1-typed span {
+        display: inline-block;
+        opacity: 0;
+      }
+      #s1-btn {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      /* ---------- shared nav ---------- */
+      .nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 84px;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 48px;
+      }
+      .nav-brand {
+        color: #080d0a;
+        font-weight: 700;
+        font-size: 30px;
+        letter-spacing: -0.01em;
+      }
+      .nav-pills {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+      .nav-pill {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* ---------- Scene 2: all stores ---------- */
+      #s2-title {
+        position: absolute;
+        top: 150px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 72px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+      #s2-cards {
+        position: absolute;
+        top: 330px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 44px;
+      }
+      .store-card {
+        width: 380px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 8px 26px rgba(8, 13, 10, 0.09), 0 2px 5px rgba(8, 13, 10, 0.05);
+        padding: 34px 30px 30px;
+      }
+      .store-card h3 {
+        margin: 0 0 10px;
+        font-size: 30px;
+        font-weight: 700;
+      }
+      .store-card p {
+        margin: 0 0 22px;
+        font-size: 19px;
+        color: var(--muted);
+      }
+      .stars {
+        font-size: 30px;
+        letter-spacing: 6px;
+        color: #b07a10;
+        display: inline-block;
+      }
+      /* ---------- Scene 3: menu + cart ---------- */
+      #s3-head {
+        position: absolute;
+        top: 138px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 34px;
+      }
+      #s3-head h2 {
+        margin: 0;
+        font-size: 56px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      #s3-cart {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .badge {
+        position: absolute;
+        top: -12px;
+        right: -14px;
+        min-width: 34px;
+        height: 34px;
+        border-radius: 17px;
+        background: var(--green-deep);
+        color: #ffffff;
+        font-size: 19px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 7px;
+      }
+      #s3-badge2 {
+        opacity: 0;
+      }
+      #s3-menu {
+        position: absolute;
+        top: 280px;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 26px;
+      }
+      .menu-row {
+        width: 980px;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(8, 13, 10, 0.08);
+        padding: 24px 34px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .menu-name {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0 0 4px;
+      }
+      .menu-desc {
+        font-size: 18px;
+        color: var(--muted);
+        margin: 0;
+      }
+      .menu-right {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .menu-price {
+        font-family: "Geist Mono", monospace;
+        font-size: 27px;
+        font-weight: 600;
+      }
+      .add-btn {
+        background: var(--green-deep);
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 999px;
+        padding: 12px 26px;
+        white-space: nowrap;
+      }
+      #s3-cursor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+      }
+      #s3-checkout {
+        position: absolute;
+        top: 880px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 22px;
+      }
+      .chip {
+        background: var(--chip);
+        color: var(--ink);
+        font-size: 26px;
+        font-weight: 600;
+        border-radius: 999px;
+        padding: 14px 32px;
+      }
+      .arrow {
+        font-size: 30px;
+        color: var(--muted);
+      }
+      /* ---------- Scene 4: dashboard ---------- */
+      #s4-title {
+        position: absolute;
+        top: 128px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 76px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 0;
+        color: var(--light-dark);
+      }
+      #s4-title .accent {
+        color: var(--accent);
+      }
+      #s4-cards {
+        position: absolute;
+        top: 288px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+      }
+      .stat-card {
+        width: 480px;
+        background: var(--card-dark);
+        border: 1px solid rgba(125, 199, 161, 0.22);
+        border-radius: 16px;
+        padding: 30px 34px;
+      }
+      .stat-label {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted-dark);
+        margin: 0 0 12px;
+      }
+      .stat-value {
+        font-family: "Geist Mono", monospace;
+        font-size: 46px;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 0;
+      }
+      .stat-sub {
+        font-size: 18px;
+        color: var(--muted-dark);
+        margin: 10px 0 0;
+      }
+      #s4-chart {
+        position: absolute;
+        top: 520px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+      }
+      #s4-credit {
+        position: absolute;
+        top: 962px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Geist Mono", monospace;
+        font-size: 22px;
+        color: var(--muted-dark);
+        margin: 0;
+      }
+      /* ---------- Scene 5: outro ---------- */
+      #s5-lockup {
+        position: absolute;
+        top: 360px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 172px;
+        font-weight: 900;
+        letter-spacing: -0.035em;
+        margin: 0;
+        line-height: 1;
+      }
+      #s5-lockup .drive {
+        color: var(--green);
+      }
+      #s5-tagline {
+        position: absolute;
+        top: 636px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 42px;
+        font-weight: 500;
+        color: #2c3830;
+        margin: 0;
+      }
+      #s5-punch {
+        position: absolute;
+        top: 748px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 25px;
+        color: var(--muted);
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="lieferando-brag"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="20"
+      data-fps="30"
+    >
+      <!-- ============ Scene 1: hook (0 - 3.0) ============ -->
+      <section id="s1" class="clip" data-start="0" data-duration="3">
+        <div class="inner" style="background: var(--bg-light)">
+          <div class="glow" data-layout-allow-overflow="true" id="s1-glow" style="top:-180px; left:-160px; width:640px; height:640px; background: rgba(151, 206, 178, 0.55);"></div>
+          <div class="glow" data-layout-allow-overflow="true" id="s1-glow2" style="bottom:-220px; right:-140px; width:560px; height:560px; background: rgba(94, 175, 133, 0.35);"></div>
+          <h1 id="s1-hungry">Hungry?</h1>
+          <div id="s1-searchrow">
+            <div id="s1-searchbar">
+              <div id="s1-input">
+                <div id="s1-placeholder">Suche hier nach deiner Postleitzahl...</div>
+                <div id="s1-typed"><span>1</span><span>0</span><span>1</span><span>5</span><span>7</span></div>
+              </div>
+              <div id="s1-btn">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Scene 2: all stores (3.0 - 6.5) ============ -->
+      <section id="s2" class="clip" data-start="3" data-duration="3.5">
+        <div class="inner" style="background: var(--bg-light)">
+          <div class="glow" data-layout-allow-overflow="true" id="s2-glow" style="top:-200px; right:-160px; width:600px; height:600px; background: rgba(151, 206, 178, 0.5);"></div>
+          <div class="nav">
+            <div class="nav-brand">drink &amp; drive</div>
+            <div class="nav-pills">
+              <div class="nav-pill"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#080d0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></div>
+              <div class="nav-pill"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#080d0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+            </div>
+          </div>
+          <h2 id="s2-title">All Stores</h2>
+          <div id="s2-cards">
+            <div class="store-card" id="s2-card1">
+              <h3>John Doe's Store</h3>
+              <p>Next to subway</p>
+              <span class="stars" id="s2-stars1">★★★★☆</span>
+            </div>
+            <div class="store-card" id="s2-card2">
+              <h3>Jane Smith's Store</h3>
+              <p>Corner building</p>
+              <span class="stars" id="s2-stars2">★★★★★</span>
+            </div>
+            <div class="store-card" id="s2-card3">
+              <h3>Mike Wilson's Store</h3>
+              <p>Shopping district</p>
+              <span class="stars" id="s2-stars3">★★★☆☆</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Scene 3: the order (6.5 - 11.0) ============ -->
+      <section id="s3" class="clip" data-start="6.5" data-duration="4.5">
+        <div class="inner" style="background: var(--bg-light)">
+          <div class="glow" data-layout-allow-overflow="true" id="s3-glow" style="top:-220px; left:-180px; width:620px; height:620px; background: rgba(151, 206, 178, 0.45);"></div>
+          <div class="nav">
+            <div class="nav-brand">drink &amp; drive</div>
+            <div class="nav-pills">
+              <div class="nav-pill" id="s3-cartpill" style="position: relative;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#080d0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <div class="badge" id="s3-badge1">1</div>
+                <div class="badge" id="s3-badge2">2</div>
+              </div>
+            </div>
+          </div>
+          <div id="s3-head">
+            <h2>John Doe's Store</h2>
+          </div>
+          <div id="s3-menu">
+            <div class="menu-row" id="s3-row1">
+              <div>
+                <p class="menu-name">Margherita Pizza</p>
+                <p class="menu-desc">Classic tomato and mozzarella</p>
+              </div>
+              <div class="menu-right">
+                <span class="menu-price">€12.99</span>
+                <span class="add-btn" id="s3-addbtn">Add to cart</span>
+              </div>
+            </div>
+            <div class="menu-row" id="s3-row2">
+              <div>
+                <p class="menu-name">Pasta Carbonara</p>
+                <p class="menu-desc">Creamy pasta with bacon</p>
+              </div>
+              <div class="menu-right">
+                <span class="menu-price">€16.99</span>
+                <span class="add-btn">Add to cart</span>
+              </div>
+            </div>
+            <div class="menu-row" id="s3-row3">
+              <div>
+                <p class="menu-name">Dragon Roll</p>
+                <p class="menu-desc">Eel and avocado topped roll</p>
+              </div>
+              <div class="menu-right">
+                <span class="menu-price">€18.99</span>
+                <span class="add-btn">Add to cart</span>
+              </div>
+            </div>
+          </div>
+          <div id="s3-checkout">
+            <span class="chip" id="s3-chip1">Order</span>
+            <span class="arrow" id="s3-arrow1">→</span>
+            <span class="chip" id="s3-chip2">Payment</span>
+            <span class="arrow" id="s3-arrow2">→</span>
+            <span class="chip" id="s3-chip3">Confirmation</span>
+          </div>
+          <svg id="s3-cursor" width="34" height="38" viewBox="0 0 24 26" style="opacity:0;">
+            <path d="M3 1 L3 21 L8.5 16.5 L12 24 L15.5 22.4 L12 15 L19 14.5 Z" fill="#080d0a" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- ============ Scene 4: the other side (11.0 - 15.5) ============ -->
+      <section id="s4" class="clip" data-start="11" data-duration="4.5">
+        <div class="inner" style="background: var(--bg-dark)">
+          <div class="glow" data-layout-allow-overflow="true" id="s4-glow" style="top:-240px; right:-180px; width:700px; height:700px; background: rgba(94, 175, 133, 0.28);"></div>
+          <div class="glow" data-layout-allow-overflow="true" id="s4-glow2" style="bottom:-260px; left:-200px; width:640px; height:640px; background: rgba(125, 199, 161, 0.16);"></div>
+          <h2 id="s4-title">One app. <span class="accent">Two sides.</span></h2>
+          <div id="s4-cards">
+            <div class="stat-card" id="s4-card1">
+              <p class="stat-label">Monthly Income</p>
+              <p class="stat-value" id="income-val">$0.00</p>
+            </div>
+            <div class="stat-card" id="s4-card2">
+              <p class="stat-label">Orders Last Month</p>
+              <p class="stat-value" id="orders-val">0</p>
+            </div>
+            <div class="stat-card" id="s4-card3">
+              <p class="stat-label">Top Products</p>
+              <p class="stat-value" style="font-size: 30px; padding-top: 8px;">Margherita Pizza</p>
+              <p class="stat-sub" id="sales-val">214 sales</p>
+            </div>
+          </div>
+          <div id="s4-chart">
+            <svg width="1440" height="360" viewBox="0 0 1440 360">
+              <defs>
+                <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7dc7a1" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#7dc7a1" stop-opacity="0.02"/>
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="90" x2="1440" y2="90" stroke="rgba(157,184,168,0.14)" stroke-width="1"/>
+              <line x1="0" y1="180" x2="1440" y2="180" stroke="rgba(157,184,168,0.14)" stroke-width="1"/>
+              <line x1="0" y1="270" x2="1440" y2="270" stroke="rgba(157,184,168,0.14)" stroke-width="1"/>
+              <g id="s4-area" style="clip-path: inset(0 100% 0 0);">
+                <path d="M0,320 C160,300 280,288 420,262 C560,236 640,252 780,214 C920,176 1040,186 1180,128 C1290,86 1380,72 1440,58 L1440,360 L0,360 Z" fill="url(#areaFill)"/>
+              </g>
+              <path id="s4-line" d="M0,320 C160,300 280,288 420,262 C560,236 640,252 780,214 C920,176 1040,186 1180,128 C1290,86 1380,72 1440,58" fill="none" stroke="#7dc7a1" stroke-width="5" stroke-linecap="round"/>
+              <circle id="s4-dot" cx="1426" cy="60" r="9" fill="#7dc7a1" stroke="#080d0a" stroke-width="3" opacity="0"/>
+            </svg>
+          </div>
+          <p id="s4-credit">Powered by Prisma + MySQL</p>
+        </div>
+      </section>
+
+      <!-- ============ Scene 5: outro (15.5 - 20.0) ============ -->
+      <section id="s5" class="clip" data-start="15.5" data-duration="4.5">
+        <div class="inner" style="background: var(--bg-light)">
+          <div class="glow" data-layout-allow-overflow="true" id="s5-glow" style="top:-200px; left:-140px; width:660px; height:660px; background: rgba(151, 206, 178, 0.5);"></div>
+          <div class="glow" data-layout-allow-overflow="true" id="s5-glow2" style="bottom:-240px; right:-160px; width:600px; height:600px; background: rgba(94, 175, 133, 0.35);"></div>
+          <h1 id="s5-lockup">Drink &amp; <span class="drive">Drive</span></h1>
+          <p id="s5-tagline">Food delivery, full stack.</p>
+          <p id="s5-punch">Not affiliated with Lieferando. Obviously.</p>
+        </div>
+      </section>
+
+      <!-- ============ Audio ============ -->
+      <audio
+        id="bg-music"
+        src="assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3"
+        data-start="0"
+        data-duration="20"
+        data-track-index="10"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0.32},{"t":18.2,"v":0.32},{"t":19.9,"v":0}]}]}'
+      ></audio>
+      <audio id="sfx-hook" src="assets/sfx/impact/impactSoft_medium_000.ogg" data-start="0.28" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-key1" src="assets/sfx/keyboard/keypress-001.wav" data-start="1.0" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx-key2" src="assets/sfx/keyboard/keypress-004.wav" data-start="1.24" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx-key3" src="assets/sfx/keyboard/keypress-002.wav" data-start="1.48" data-track-index="14" data-volume="0.45"></audio>
+      <audio id="sfx-key4" src="assets/sfx/keyboard/keypress-006.wav" data-start="1.72" data-track-index="15" data-volume="0.45"></audio>
+      <audio id="sfx-key5" src="assets/sfx/keyboard/keypress-003.wav" data-start="1.96" data-track-index="16" data-volume="0.45"></audio>
+      <audio id="sfx-card1" src="assets/sfx/casino/card-place-1.ogg" data-start="3.52" data-track-index="17" data-volume="0.55"></audio>
+      <audio id="sfx-card2" src="assets/sfx/casino/card-place-2.ogg" data-start="4.52" data-track-index="18" data-volume="0.55"></audio>
+      <audio id="sfx-card3" src="assets/sfx/casino/card-place-3.ogg" data-start="5.52" data-track-index="19" data-volume="0.55"></audio>
+      <audio id="sfx-click" src="assets/sfx/interface/click_001.ogg" data-start="8.68" data-track-index="20" data-volume="0.6"></audio>
+      <audio id="sfx-badge" src="assets/sfx/interface/select_008.ogg" data-start="8.85" data-track-index="21" data-volume="0.55"></audio>
+      <audio id="sfx-dash" src="assets/sfx/impact/impactSoft_medium_000.ogg" data-start="11.15" data-track-index="22" data-volume="0.5"></audio>
+      <audio id="sfx-chart" src="assets/sfx/interface/drop_002.ogg" data-start="12.6" data-track-index="23" data-volume="0.5"></audio>
+      <audio id="sfx-logo" src="assets/sfx/impact/impactBell_heavy_000.ogg" data-start="16.0" data-track-index="24" data-volume="0.6"></audio>
+    </div>
+
+    <script>
+      (function () {
+        var root = document.getElementById("root");
+        var compositionId = root.dataset.compositionId;
+        var tl = gsap.timeline({ paused: true });
+
+        /* ---------- ambient decoratives (finite, seek-safe) ---------- */
+        tl.to("#s1-glow", { scale: 1.12, duration: 3, ease: "sine.inOut" }, 0);
+        tl.to("#s2-glow", { scale: 1.1, duration: 3.5, ease: "sine.inOut" }, 3);
+        tl.to("#s3-glow", { scale: 1.1, duration: 4.5, ease: "sine.inOut" }, 6.5);
+        tl.to("#s4-glow", { scale: 1.14, duration: 4.5, ease: "sine.inOut" }, 11);
+        tl.to("#s4-glow2", { scale: 1.1, duration: 4.5, ease: "sine.inOut" }, 11);
+        tl.to("#s5-glow", { scale: 1.12, duration: 4.5, ease: "sine.inOut" }, 15.5);
+        tl.to("#s5-glow2", { scale: 1.08, duration: 4.5, ease: "sine.inOut" }, 15.5);
+
+        /* ---------- Scene 1: hook (0 - 3.0) ---------- */
+        // "Hungry?" slams in at 0.3s
+        tl.fromTo(
+          "#s1-hungry",
+          { scale: 1.5, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.45, ease: "power4.out" },
+          0.3
+        );
+        tl.fromTo(
+          "#s1-searchbar",
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+          0.7
+        );
+        // hide placeholder as typing starts
+        tl.to("#s1-placeholder", { opacity: 0, duration: 0.15, ease: "none" }, 0.95);
+        // type "10157" char by char
+        tl.set("#s1-typed span:nth-child(1)", { opacity: 1 }, 1.0);
+        tl.set("#s1-typed span:nth-child(2)", { opacity: 1 }, 1.24);
+        tl.set("#s1-typed span:nth-child(3)", { opacity: 1 }, 1.48);
+        tl.set("#s1-typed span:nth-child(4)", { opacity: 1 }, 1.72);
+        tl.set("#s1-typed span:nth-child(5)", { opacity: 1 }, 1.96);
+        // green search button pulse
+        tl.to("#s1-btn", { scale: 1.14, duration: 0.16, ease: "power2.out" }, 2.4);
+        tl.to("#s1-btn", { scale: 1, duration: 0.2, ease: "power2.inOut" }, 2.56);
+
+        /* ---------- Scene 2: all stores (3.0 - 6.5) ---------- */
+        tl.fromTo(
+          "#s2-title",
+          { y: 44, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+          3.1
+        );
+        // beat-grid: card 1 at 3.52s, card 2 at 4.52s, card 3 at 5.52s (every other ~0.5s beat)
+        tl.fromTo(
+          "#s2-card1",
+          { y: 70, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.4)" },
+          3.52
+        );
+        tl.fromTo(
+          "#s2-stars1",
+          { scale: 0, transformOrigin: "left center" },
+          { scale: 1, duration: 0.35, ease: "back.out(2)" },
+          3.72
+        );
+        tl.fromTo(
+          "#s2-card2",
+          { y: 70, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.4)" },
+          4.52
+        );
+        tl.fromTo(
+          "#s2-stars2",
+          { scale: 0, transformOrigin: "left center" },
+          { scale: 1, duration: 0.35, ease: "back.out(2)" },
+          4.72
+        );
+        tl.fromTo(
+          "#s2-card3",
+          { y: 70, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.4)" },
+          5.52
+        );
+        tl.fromTo(
+          "#s2-stars3",
+          { scale: 0, transformOrigin: "left center" },
+          { scale: 1, duration: 0.35, ease: "back.out(2)" },
+          5.72
+        );
+
+        /* ---------- Scene 3: the order (6.5 - 11.0) ---------- */
+        tl.fromTo(
+          "#s3-head",
+          { y: -36, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+          6.6
+        );
+        tl.fromTo(
+          "#s3-cartpill",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.35, ease: "power2.out" },
+          6.75
+        );
+        tl.fromTo(
+          "#s3-row1",
+          { x: -60, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+          6.85
+        );
+        tl.fromTo(
+          "#s3-row2",
+          { x: -60, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+          7.1
+        );
+        tl.fromTo(
+          "#s3-row3",
+          { x: -60, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+          7.35
+        );
+        // cursor travels to the Margherita "Add to cart" button
+        tl.to("#s3-cursor", { opacity: 1, duration: 0.15, ease: "none" }, 7.9);
+        tl.fromTo(
+          "#s3-cursor",
+          { x: 1500, y: 320 },
+          { x: 1320, y: 340, duration: 0.55, ease: "power2.inOut" },
+          8.0
+        );
+        // click: button presses, badge ticks 1 -> 2
+        tl.to("#s3-addbtn", { scale: 0.92, duration: 0.09, ease: "power2.out" }, 8.7);
+        tl.to("#s3-addbtn", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 8.79);
+        tl.set("#s3-badge1", { autoAlpha: 0 }, 8.85);
+        tl.fromTo(
+          "#s3-badge2",
+          { scale: 0.4, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" },
+          8.85
+        );
+        // checkout strip: Order -> Payment -> Confirmation
+        tl.fromTo(
+          "#s3-chip1",
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.32, ease: "power3.out" },
+          9.6
+        );
+        tl.fromTo(
+          "#s3-arrow1",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.2, ease: "none" },
+          9.78
+        );
+        tl.fromTo(
+          "#s3-chip2",
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.32, ease: "power3.out" },
+          9.9
+        );
+        tl.fromTo(
+          "#s3-arrow2",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.2, ease: "none" },
+          10.08
+        );
+        tl.fromTo(
+          "#s3-chip3",
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.32, ease: "power3.out" },
+          10.2
+        );
+
+        /* ---------- Scene 4: the other side (11.0 - 15.5) ---------- */
+        tl.fromTo(
+          "#s4-title",
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, ease: "power4.out" },
+          11.15
+        );
+        tl.fromTo(
+          "#s4-card1",
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+          11.8
+        );
+        tl.fromTo(
+          "#s4-card2",
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+          12.0
+        );
+        tl.fromTo(
+          "#s4-card3",
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+          12.2
+        );
+        // count-ups (deterministic proxy objects)
+        var income = { v: 0 };
+        tl.to(
+          income,
+          {
+            v: 4281.6,
+            duration: 1.2,
+            ease: "power1.out",
+            onUpdate: function () {
+              document.getElementById("income-val").textContent =
+                "$" +
+                income.v.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                });
+            },
+          },
+          11.95
+        );
+        var orders = { v: 0 };
+        tl.to(
+          orders,
+          {
+            v: 132,
+            duration: 1.0,
+            ease: "power1.out",
+            onUpdate: function () {
+              document.getElementById("orders-val").textContent = String(Math.round(orders.v));
+            },
+          },
+          12.05
+        );
+        // chart draws itself
+        var line = document.getElementById("s4-line");
+        var len = line.getTotalLength();
+        line.style.strokeDasharray = String(len);
+        tl.set(line, { strokeDashoffset: len }, 12.5);
+        tl.to(line, { strokeDashoffset: 0, duration: 1.5, ease: "power1.inOut" }, 12.6);
+        tl.to(
+          "#s4-area",
+          { clipPath: "inset(0 0% 0 0)", duration: 1.6, ease: "power1.inOut" },
+          12.7
+        );
+        tl.to("#s4-dot", { opacity: 1, duration: 0.25, ease: "power2.out" }, 14.1);
+        tl.fromTo(
+          "#s4-credit",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4, ease: "power2.out" },
+          14.4
+        );
+
+        /* ---------- Scene 5: outro (15.5 - 20.0) ---------- */
+        // beat-locked: 16.02s (strong cue) — logo slam
+        tl.fromTo(
+          "#s5-lockup",
+          { scale: 1.45, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.5, ease: "power4.out" },
+          16.02
+        );
+        tl.fromTo(
+          "#s5-tagline",
+          { y: 36, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" },
+          16.9
+        );
+        // beat-locked: 18.52s (strong cue) — punchline
+        tl.fromTo(
+          "#s5-punch",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+          18.52
+        );
+
+        window.__timelines[compositionId] = tl;
+      })();
+    </script>
+  </body>
+</html>
